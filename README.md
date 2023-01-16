@@ -47,3 +47,12 @@ $ yarn dev (or `npm run dev` or `pnpm run dev`)
 # production build
 $ yarn build (or `npm run build` or `pnpm run build`)
 ```
+
+### Commit Message Convention
+
+| Tag Name | Description                  |
+| -------- | ---------------------------- |
+| feat     | 새로운 기능을 추가할 경우    |
+| fix      | 버그를 고친 경우             |
+| design   | CSS 등 사용자 UI 디자인 변경 |
+| comment  | comment 추가                 |
