@@ -11,15 +11,26 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@hookform/resolvers": "^2.9.10",
+    "@mui/material": "^5.11.4",
+    "@mui/styled-engine-sc": "^5.11.0",
     "electron-serve": "^1.1.0",
-    "electron-store": "^8.1.0"
+    "electron-store": "^8.1.0",
+    "react-hook-form": "^7.42.1",
+    "recoil": "^0.7.6",
+    "styled-components": "^5.3.6",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/react": "18.0.26",
     "electron": "^21.3.3",
     "electron-builder": "^23.6.0",
     "next": "^12.3.4",
     "nextron": "^8.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "typescript": "4.9.4"
   }
 }
