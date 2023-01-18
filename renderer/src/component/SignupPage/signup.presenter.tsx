@@ -1,7 +1,9 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import BackButton from "../../common/Btn/BackBtn";
 import * as SS from "./signup.style";
+import { ISignup } from "./signup.type";
 
-export default function SignUpUI() {
+export default function SignUpUI(props: ISignup) {
   return (
     <SS.Wrapper>
       <Box
@@ -41,16 +43,19 @@ export default function SignUpUI() {
             id="password"
             autoComplete="current-password"
           />
+          {/* 버튼타입수정하기 */}
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={props.onClickSignup}
           >
             가입하기
           </Button>
         </Box>
       </Box>
+      <BackButton />
     </SS.Wrapper>
   );
 }
