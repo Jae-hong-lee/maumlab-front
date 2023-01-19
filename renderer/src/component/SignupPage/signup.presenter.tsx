@@ -1,11 +1,11 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import BackButton from "../../common/Btn/BackBtn";
-import * as SS from "./signup.style";
+import * as SUS from "./signup.style";
 import { ISignup } from "./signup.type";
 
 export default function SignUpUI(props: ISignup) {
   return (
-    <SS.Wrapper>
+    <SUS.Wrapper>
       <Box
         sx={{
           marginTop: 8,
@@ -54,8 +54,8 @@ export default function SignUpUI(props: ISignup) {
             가입하기
           </Button>
         </Box>
+        <BackButton />
       </Box>
-      <BackButton />
-    </SS.Wrapper>
+    </SUS.Wrapper>
   );
 }

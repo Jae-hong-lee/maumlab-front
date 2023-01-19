@@ -6,5 +6,5 @@ export default function BackButton() {
   const BackLink = () => {
     router.back();
   };
-  return <Button onClick={BackLink}>뒤로가기!</Button>;
+  return <Button onClick={BackLink}>뒤로가기</Button>;
 }

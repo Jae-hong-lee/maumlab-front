@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 import BackButton from "../../../src/common/Btn/BackBtn";
+import ChatListContainer from "../../../src/component/ChattingPage/ChatList/chatlist.container";
+import MSInputContainer from "../../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
+import MessagesContainer from "../../../src/component/ChattingPage/Messages/messages.container";
 import NavbarContainer from "../../../src/component/ChattingPage/Navbar/navbar.container";
+import SearchContainer from "../../../src/component/ChattingPage/Search/search.container";
+import UserInfoContainer from "../../../src/component/ChattingPage/UserInfo/userinfo.container";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -19,15 +24,13 @@ const ChatContainer = styled.div`
 `;
 
 const SidebarWrapper = styled.div`
-  display: flex;
   flex: 1;
   background-color: #00cb6a;
   color: #ddddf7;
 `;
 
 const ChattingWrapper = styled.div`
-  display: flex;
-  /* background-color: #4dc885; */
+  /* background-color: #dffcec; */
   flex: 2;
 `;
 
@@ -35,16 +38,19 @@ export default function ChatPage() {
   return (
     <Wrapper>
       <ChatContainer>
+        {/* 사이드 Wrapper */}
         <SidebarWrapper>
           <NavbarContainer />
-          <br />
-          SearchBar
-          <br />
-          ChatList
+          <SearchContainer />
+          <ChatListContainer />
         </SidebarWrapper>
-        <ChattingWrapper>UserInfo Messages MessageInput</ChattingWrapper>
+        {/* 채팅 Wrapper */}
+        <ChattingWrapper>
+          <UserInfoContainer />
+          <MessagesContainer />
+          <MSInputContainer />
+        </ChattingWrapper>
       </ChatContainer>
-      <BackButton />
     </Wrapper>
   );
 }
