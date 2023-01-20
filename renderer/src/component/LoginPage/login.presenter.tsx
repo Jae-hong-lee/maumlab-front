@@ -19,7 +19,7 @@ export default function LoginUI(props: ILogin) {
           로그인
         </Typography>
 
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box sx={{ mt: 1, width: "80%" }} component="form" noValidate>
           <TextField
             margin="normal"
             required
@@ -51,8 +51,8 @@ export default function LoginUI(props: ILogin) {
             로그인하기
           </Button>
         </Box>
-        <BackButton />
         <Button onClick={props.SignupClick}>회원가입 하러가기</Button>
+        <BackButton />
       </Box>
     </LS.Wrapper>
   );

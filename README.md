@@ -3,7 +3,7 @@
 ### 사용 기술
 
 ```
-yarn(5.1.1),react(18.2.0), next(12.3.4), nextron(8.4.0), firebase()
+yarn(5.1.1),react(18.2.0), next(12.3.4), nextron(8.4.0), firebase(9.16.0)
 ```
 
 ```

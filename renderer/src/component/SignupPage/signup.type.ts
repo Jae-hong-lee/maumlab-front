@@ -1,3 +1,8 @@
 export interface ISignup {
-  onClickSignup: () => void;
+  onClickSignup: (data: FormValues) => void;
 }
+
+export type FormValues = {
+  email: string;
+  password: string;
+};
