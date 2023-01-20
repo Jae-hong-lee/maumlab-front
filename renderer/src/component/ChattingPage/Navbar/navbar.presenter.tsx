@@ -8,7 +8,7 @@ export default function NavbarUI(props: INavbar) {
     <NS.Wrapper>
       <NS.User>
         <Avatar sx={{ m: 1, height: 24, width: 24 }} />
-        <NS.NickName>회원이름</NS.NickName>
+        <NS.NickName>email</NS.NickName>
       </NS.User>
       <BackButton />
     </NS.Wrapper>
