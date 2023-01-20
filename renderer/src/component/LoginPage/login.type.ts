@@ -1,4 +1,6 @@
+import { FormValues } from "../SignupPage/signup.type";
+
 export interface ILogin {
   SignupClick: () => void;
-  onClickLogin: () => void;
+  onClickLogin: (data: FormValues) => void;
 }
