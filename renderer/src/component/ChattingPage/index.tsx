@@ -30,7 +30,6 @@ const Chatting = () => {
       {/* 사이드 Wrapper */}
       <SidebarWrapper>
         <NavbarContainer />
-        <SearchContainer />
         <ChatListContainer />
       </SidebarWrapper>
       {/* 채팅 Wrapper */}

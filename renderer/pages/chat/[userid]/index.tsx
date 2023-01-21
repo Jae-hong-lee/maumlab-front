@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import { auth } from "../../../src/common/firebase/firebase";
+import { ChatUserInfo } from "../../../src/common/recoil/chatinfo";
 import Chatting from "../../../src/component/ChattingPage";
 
 const Wrapper = styled.div`

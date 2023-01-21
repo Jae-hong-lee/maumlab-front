@@ -46,6 +46,43 @@ $ yarn dev (or `npm run dev` or `pnpm run dev`)
 $ yarn build (or `npm run build` or `pnpm run build`)
 ```
 
+### Firebase DB
+
+```
+users: [{
+  user : {
+    uid // 고유의 사용자 아이디
+    email // 사용자 이메일
+  }
+}]
+
+rooms: [{
+  user.uid: [{
+    roomID : [{ // roomID = user.uid + 상대방들 uid
+      date
+      users:[{ // 상대방들
+        userInfo :{  // 상대방 정보
+          uid
+          email
+        }
+      }]
+      lastMessage
+    }]
+  }]
+}],
+messages: [{
+  roomID: [{
+    message: [{
+      date
+      text
+      messageId
+      senderId // 보낸사람 ID
+    }]
+  }]
+}],
+
+```
+
 ### Commit Message Convention
 
 | Tag Name | Description                  |

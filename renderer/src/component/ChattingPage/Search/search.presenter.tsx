@@ -1,24 +1,57 @@
-import { ISearch } from "./search.type";
+import { ISearch, ChipData } from "./search.type";
 import * as SS from "./search.style";
-import { Avatar } from "@mui/material";
+import { Avatar, Button, Chip, ListItem, Paper } from "@mui/material";
 
 export default function SearchUI(props: ISearch) {
   return (
     <SS.Wrapper>
-      <SS.SearchBox>
-        <SS.SearchInput type="text" placeholder="유저찾기" />
-      </SS.SearchBox>
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          listStyle: "none",
+          p: 0.5,
+          m: 0,
+        }}
+        component="ul"
+      >
+        {props.chipData.map((el, index) => {
+          return (
+            <ListItem key={index}>
+              <Chip label={el} onDelete={props.handleDelete(el)} />
+            </ListItem>
+          );
+        })}
+      </Paper>
 
-      {/* 서치실패 */}
-      {/* <SS.SearchErr>에러메세지</SS.SearchErr> */}
-
-      {/* 서치성공 */}
-      <SS.SearchUserInfo>
-        <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
-        <SS.UserChatInfo>
-          <span>검색한 이름을 가진 사람</span>
-        </SS.UserChatInfo>
-      </SS.SearchUserInfo>
+      {props.chatUser
+        .map((el: any) => el.email)
+        .map((el2: string, index: number) => (
+          <div key={index}>
+            {el2 === sessionStorage.email ? (
+              <></>
+            ) : (
+              <SS.SearchUserInfo
+                onClick={() => {
+                  props.onClickUser(el2);
+                }}
+              >
+                <Avatar sx={{ height: 50, width: 50 }} />
+                <SS.UserChatInfo>
+                  <span>{el2}</span>
+                </SS.UserChatInfo>
+              </SS.SearchUserInfo>
+            )}
+          </div>
+        ))}
+      <Button
+        onClick={() => {
+          props.onClickSelect(props.chipData);
+        }}
+      >
+        채팅추가하기
+      </Button>
     </SS.Wrapper>
   );
 }

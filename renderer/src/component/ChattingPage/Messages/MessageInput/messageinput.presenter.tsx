@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import * as MIS from "./messageinput.style";
 
-export default function MSInputUI(props) {
+export default function MSInputUI(props: any) {
   return (
     <MIS.Wrapper>
       <MIS.MessageInput placeholder="대화를 입력해주세요" />

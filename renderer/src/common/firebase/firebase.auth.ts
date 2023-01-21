@@ -26,7 +26,7 @@ export default function useAuth() {
         uid: CreatUserRES.user.uid,
         email: CreatUserRES.user.email,
       });
-      await setDoc(doc(db, "ChatList", CreatUserRES.user.uid), {
+      await setDoc(doc(db, "ChatList", CreatUserRES.user.email), {
         test: "채팅목록",
         date,
       });
