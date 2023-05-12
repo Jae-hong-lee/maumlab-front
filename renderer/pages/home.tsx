@@ -8,10 +8,10 @@ function Home() {
     <RecoilRoot>
       <React.Fragment>
         <Head>
-          <title>마음 연구소 프론트-코딩 테스트</title>
+          <title>Nextron</title>
           <meta
             name="description"
-            content="마음 연구소 프론트엔드 코딩테스트 : nextron을 이용한 채팅프로그램을 구현"
+            content="nextron을 이용한 채팅프로그램을 구현"
           />
           <meta
             name="keywords"
