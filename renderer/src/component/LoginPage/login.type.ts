@@ -1,4 +1,5 @@
 export interface ILogin {
-  SignupClick: () => void;
   onClickLogin: () => void;
+  formState: any;
+  register: any;
 }
