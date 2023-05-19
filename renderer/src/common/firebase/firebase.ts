@@ -2,8 +2,8 @@
 import { initializeApp } from "firebase/app";
 // 인증관련
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/storage";
-import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCxK_7Pr0HNSF_vI_nj0aCa8p4J2vxjm4A",
@@ -16,5 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { auth };
+export { auth, db, storage };

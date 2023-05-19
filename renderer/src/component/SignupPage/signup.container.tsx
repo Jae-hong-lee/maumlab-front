@@ -14,9 +14,12 @@ export default function SignUpContainer() {
   const { signup } = AuthDataSource();
 
   const onClickSignup = handleSubmit(async (userData: any) => {
-    signup(userData.email, userData.password, userData.nickName);
-    console.log("회원가입 완료!");
-    router.replace("/login");
+    try {
+      await signup(userData.email, userData.password, userData.nickName);
+      router.replace("/login");
+    } catch (error) {
+      console.log(error.message);
+    }
   });
 
   return (

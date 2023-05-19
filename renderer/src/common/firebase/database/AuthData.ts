@@ -1,43 +1,71 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 
 // 회원가입, 로그인 데이터관리하는 함수들
 export default function AuthDataSource() {
   // 신규 회원가입 이메일 패스워드
-  const signup = async (email: string, password: string, name: String) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (res) => {
-        const User: any = res.user;
-        // console.log("회원가입성공", User);
-        await updateProfile(User, {
-          displayName: `${name}`,
-        })
-          .then(() => {
-            console.log("Profile Updated", User);
-          })
-          .catch((error) => {
-            console.log("업데이트 실패", error);
-          });
-      })
-      .catch((error) => {
-        console.log("회원가입 실패", error.message);
-      });
+  const signup = async (email: string, password: string, nickName: string) => {
+    try {
+      const nameCheck = await CheckNickName(nickName);
+      if (nameCheck) {
+        // throw: 사용자가 지정한 에러 출력
+        throw Error("닉네임이 중복되었습니다.");
+      }
+
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      await saveUserInfo(user.email, user.uid, nickName);
+    } catch (error) {
+      if (error == "닉네임이 중복되었습니다") {
+        throw Error(error.message);
+      }
+      console.log(error);
+    }
   };
 
   // 기존 사용자 로그인
   const login = async (email: string, password: string) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        const user = res.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log("로그인실패", error.message);
-      });
+    const LoginUser = await signInWithEmailAndPassword(auth, email, password);
+    console.log(LoginUser, "로그인성공");
   };
+
+  //------------------
+
+  // 닉네임 중복체크
+  const CheckNickName = async (name: string) => {
+    const q = query(collection(db, "Users"), where("nickName", "==", name));
+    const users = await getDocs(q);
+    return users.size !== 0;
+  };
+
+  // 사용자 정보 Storage 저장
+  const saveUserInfo = async (email: string, uid: string, nickName: string) => {
+    try {
+      await setDoc(doc(db, "Users", uid), {
+        email,
+        nickName,
+        uid,
+        rooms: [],
+      });
+    } catch (error) {
+      console.log("유저정보저장실패");
+    }
+  };
+
   return { signup, login };
 }
