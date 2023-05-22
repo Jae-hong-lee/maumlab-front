@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import BackButton from "../../../src/common/Btn/BackBtn";
 import ChatListContainer from "../../../src/component/ChattingPage/ChatList/chatlist.container";
 import MSInputContainer from "../../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
 import MessagesContainer from "../../../src/component/ChattingPage/Messages/messages.container";
@@ -30,7 +29,6 @@ const SidebarWrapper = styled.div`
 `;
 
 const ChattingWrapper = styled.div`
-  /* background-color: #dffcec; */
   flex: 2;
 `;
 

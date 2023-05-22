@@ -11,6 +11,7 @@ export default function SignUpContainer() {
     mode: "onChange",
   });
   const router = useRouter();
+
   const { signup } = AuthDataSource();
 
   const onClickSignup = handleSubmit(async (userData: any) => {
