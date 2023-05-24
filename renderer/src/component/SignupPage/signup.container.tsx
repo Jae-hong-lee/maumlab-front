@@ -18,8 +18,10 @@ export default function SignUpContainer() {
     try {
       await signup(userData.email, userData.password, userData.nickName);
       router.replace("/login");
-    } catch (error) {
-      console.log(error.message);
+    } catch (e) {
+      if (e instanceof Error) {
+        alert(e.message);
+      }
     }
   });
 

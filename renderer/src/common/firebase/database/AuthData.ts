@@ -30,11 +30,10 @@ export default function AuthDataSource() {
       );
 
       await saveUserInfo(user.email, user.uid, nickName);
-    } catch (error) {
-      if (error == "닉네임이 중복되었습니다") {
-        throw Error(error.message);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw Error(e.message);
       }
-      console.log(error);
     }
   };
 
