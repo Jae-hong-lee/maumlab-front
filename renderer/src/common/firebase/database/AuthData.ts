@@ -39,8 +39,20 @@ export default function AuthDataSource() {
 
   // 기존 사용자 로그인
   const login = async (email: string, password: string) => {
-    const LoginUser = await signInWithEmailAndPassword(auth, email, password);
-    console.log(LoginUser, "로그인성공");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (e) {
+      if (e instanceof Error) {
+        if (e.message.includes("(auth/email-already-in-use)"))
+          throw Error("이미 존재하는 계정입니다.");
+        if (e.message.includes("(auth/user-not-found)"))
+          throw Error("존재하지 않는 사용자입니다.");
+        if (e.message.includes("(auth/wrong-password)"))
+          throw Error("이메일 또는 비밀번호가 일치하지 않습니다.");
+
+        return "오류가 발생했습니다.";
+      }
+    }
   };
 
   //------------------

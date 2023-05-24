@@ -14,8 +14,14 @@ export default function LoginContainer() {
   const { login } = AuthDataSource();
 
   const onClickLogin = handleSubmit(async (userData: any) => {
-    login(userData.email, userData.password);
-    router.push("/chat/123");
+    try {
+      await login(userData.email, userData.password);
+      router.push("/chat/123");
+    } catch (e) {
+      if (e instanceof Error) {
+        alert(e.message);
+      }
+    }
   });
 
   return (
