@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 import {
@@ -23,12 +24,18 @@ export default function AuthDataSource() {
         throw Error("닉네임이 중복되었습니다.");
       }
 
-      const { user } = await createUserWithEmailAndPassword(
+      const { user }: any = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
+      // 닉네임저장
+      await updateProfile(auth.currentUser, {
+        displayName: nickName,
+      });
+
+      // 유저정보저장
       await saveUserInfo(user.email, user.uid, nickName);
     } catch (e) {
       if (e instanceof Error) {

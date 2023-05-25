@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import LoginUI from "./login.presenter";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { loginSchema } from "../../common/Validation/validation";
+import { loginSchema } from "../../common/utils/validation";
 import AuthDataSource from "../../common/firebase/database/AuthData";
 
 export default function LoginContainer() {
@@ -16,7 +16,7 @@ export default function LoginContainer() {
   const onClickLogin = handleSubmit(async (userData: any) => {
     try {
       await login(userData.email, userData.password);
-      router.push("/chat/123");
+      router.push("/chat");
     } catch (e) {
       if (e instanceof Error) {
         alert(e.message);

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import SignUpUI from "./signup.presenter";
-import { SignUpSchema } from "../../common/Validation/validation";
+import { SignUpSchema } from "../../common/utils/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import AuthDataSource from "../../common/firebase/database/AuthData";

@@ -5,6 +5,8 @@ import MessagesContainer from "../../../src/component/ChattingPage/Messages/mess
 import NavbarContainer from "../../../src/component/ChattingPage/Navbar/navbar.container";
 import SearchContainer from "../../../src/component/ChattingPage/Search/search.container";
 import UserInfoContainer from "../../../src/component/ChattingPage/UserInfo/userinfo.container";
+import useAuth from "../../../src/common/utils/useAuth";
+import BackButton from "../../../src/common/Btn/BackBtn";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -32,23 +34,26 @@ const ChattingWrapper = styled.div`
   flex: 2;
 `;
 
-export default function ChatPage() {
+function ChatPage() {
   return (
     <Wrapper>
-      <ChatContainer>
-        {/* 사이드 Wrapper */}
+      <h1>채팅페이지입니다.</h1>
+      {/* <ChatContainer>
         <SidebarWrapper>
           <NavbarContainer />
           <SearchContainer />
           <ChatListContainer />
         </SidebarWrapper>
-        {/* 채팅 Wrapper */}
+
         <ChattingWrapper>
           <UserInfoContainer />
           <MessagesContainer />
           <MSInputContainer />
         </ChattingWrapper>
-      </ChatContainer>
+      </ChatContainer> */}
     </Wrapper>
   );
 }
+
+// useAuth 추가.
+export default useAuth(ChatPage);
