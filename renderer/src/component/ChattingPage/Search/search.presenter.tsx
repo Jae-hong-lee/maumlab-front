@@ -10,7 +10,7 @@ export default function SearchUI(props: ISearch) {
       </SS.SearchBox>
 
       {/* 서치실패 */}
-      {/* <SS.SearchErr>에러메세지</SS.SearchErr> */}
+      <SS.SearchErr>닉네임을 확인해주세요!</SS.SearchErr>
 
       {/* 서치성공 */}
       <SS.SearchUserInfo>

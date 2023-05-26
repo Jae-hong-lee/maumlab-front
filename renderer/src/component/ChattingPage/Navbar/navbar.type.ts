@@ -1,1 +1,3 @@
-export interface INavbar {}
+export interface INavbar {
+  userInfo: any;
+}

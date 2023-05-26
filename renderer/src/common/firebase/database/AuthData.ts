@@ -24,7 +24,7 @@ export default function AuthDataSource() {
         throw Error("닉네임이 중복되었습니다.");
       }
 
-      const { user }: any = await createUserWithEmailAndPassword(
+      const { user } = await createUserWithEmailAndPassword(
         auth,
         email,
         password
@@ -38,6 +38,7 @@ export default function AuthDataSource() {
       // 유저정보저장
       await saveUserInfo(user.email, user.uid, nickName);
     } catch (e) {
+      // console.log(e);
       if (e instanceof Error) {
         throw Error(e.message);
       }

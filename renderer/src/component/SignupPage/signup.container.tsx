@@ -17,10 +17,12 @@ export default function SignUpContainer() {
   const onClickSignup = handleSubmit(async (userData: any) => {
     try {
       await signup(userData.email, userData.password, userData.nickName);
+      alert("회원가입 완료되었습니다.");
       router.replace("/login");
     } catch (e) {
       if (e instanceof Error) {
-        alert(e.message);
+        // console.log(e.message);
+        alert(e);
       }
     }
   });

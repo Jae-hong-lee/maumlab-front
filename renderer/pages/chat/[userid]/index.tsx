@@ -6,7 +6,6 @@ import NavbarContainer from "../../../src/component/ChattingPage/Navbar/navbar.c
 import SearchContainer from "../../../src/component/ChattingPage/Search/search.container";
 import UserInfoContainer from "../../../src/component/ChattingPage/UserInfo/userinfo.container";
 import useAuth from "../../../src/common/utils/useAuth";
-import BackButton from "../../../src/common/Btn/BackBtn";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -37,8 +36,7 @@ const ChattingWrapper = styled.div`
 function ChatPage() {
   return (
     <Wrapper>
-      <h1>채팅페이지입니다.</h1>
-      {/* <ChatContainer>
+      <ChatContainer>
         <SidebarWrapper>
           <NavbarContainer />
           <SearchContainer />
@@ -50,7 +48,7 @@ function ChatPage() {
           <MessagesContainer />
           <MSInputContainer />
         </ChattingWrapper>
-      </ChatContainer> */}
+      </ChatContainer>
     </Wrapper>
   );
 }
