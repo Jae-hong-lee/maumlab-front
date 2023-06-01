@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
-import BackButton from "../../../common/Btn/BackBtn";
 import * as NS from "./navbar.style";
 import { INavbar } from "./navbar.type";
+import LogoutButton from "../../../common/Btn/logoutBtn";
 
 export default function NavbarUI(props: INavbar) {
   return (
@@ -10,7 +10,7 @@ export default function NavbarUI(props: INavbar) {
         <Avatar sx={{ m: 1 }} />
         <NS.NickName>{props.userInfo.displayName}</NS.NickName>
       </NS.User>
-      <BackButton />
+      <LogoutButton />
     </NS.Wrapper>
   );
 }
