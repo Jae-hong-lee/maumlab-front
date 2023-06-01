@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import ChatListContainer from "../../../src/component/ChattingPage/ChatList/chatlist.container";
-import MSInputContainer from "../../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
-import MessagesContainer from "../../../src/component/ChattingPage/Messages/messages.container";
 import NavbarContainer from "../../../src/component/ChattingPage/Navbar/navbar.container";
-import SearchContainer from "../../../src/component/ChattingPage/Search/search.container";
+import FavoriteContainer from "../../../src/component/ChattingPage/Favorited/favorite.container";
+import ChatListContainer from "../../../src/component/ChattingPage/ChatList/chatlist.container";
 import UserInfoContainer from "../../../src/component/ChattingPage/UserInfo/userinfo.container";
+import MessagesContainer from "../../../src/component/ChattingPage/Messages/messages.container";
+import MSInputContainer from "../../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
 import useAuth from "../../../src/common/utils/useAuth";
 
 const Wrapper = styled.div`
@@ -39,7 +39,8 @@ function ChatPage() {
       <ChatContainer>
         <SidebarWrapper>
           <NavbarContainer />
-          <SearchContainer />
+          {/* <SearchContainer /> */}
+          <FavoriteContainer />
           <ChatListContainer />
         </SidebarWrapper>
 
@@ -55,3 +56,5 @@ function ChatPage() {
 
 // useAuth 추가.
 export default useAuth(ChatPage);
+
+// export default ChatPage;

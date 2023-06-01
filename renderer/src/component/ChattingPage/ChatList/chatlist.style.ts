@@ -2,6 +2,21 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div``;
 
+export const HadderText = styled.div`
+  font-weight: 600;
+  font-size: 20px;
+  padding-left: 5px;
+  margin: 10px;
+`;
+
+export const HadderBox = styled.div`
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+`;
+
 export const UserChatInfo = styled.div`
   padding: 10px;
   display: flex;

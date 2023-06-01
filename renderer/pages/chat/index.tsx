@@ -7,6 +7,7 @@ import ChatListContainer from "../../src/component/ChattingPage/ChatList/chatlis
 import UserInfoContainer from "../../src/component/ChattingPage/UserInfo/userinfo.container";
 import MessagesContainer from "../../src/component/ChattingPage/Messages/messages.container";
 import MSInputContainer from "../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
+import FavoriteContainer from "../../src/component/ChattingPage/Favorited/favorite.container";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -40,7 +41,7 @@ function ChatPage() {
       <ChatContainer>
         <SidebarWrapper>
           <NavbarContainer />
-          <SearchContainer />
+          <FavoriteContainer />
           <ChatListContainer />
         </SidebarWrapper>
 
@@ -55,4 +56,6 @@ function ChatPage() {
 }
 
 // useAuth 추가.
-export default useAuth(ChatPage);
+// export default useAuth(ChatPage);
+
+export default ChatPage;

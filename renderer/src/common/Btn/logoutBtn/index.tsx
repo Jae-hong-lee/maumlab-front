@@ -1,21 +1,17 @@
 import { Button } from "@mui/material";
-import { useRouter } from "next/router";
 import { getAuth, signOut } from "firebase/auth";
 
 export default function LogoutButton() {
-  const router = useRouter();
-
   // 로그아웃
-  const logoutClick = async () => {
+  const logoutClick = () => {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
-        router.push("/login");
+        // console.log("로그아웃");
       })
       .catch((error) => {
         // An error happened.
-        alert(error.message);
+        console.log(error.message);
       });
   };
 

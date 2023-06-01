@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 // types
 import { NextComponentType, NextPageContext } from "next";
-import { AppProps } from "next/app";
 // auth
 import { auth } from "../firebase/firebase";
 // 전역변수
@@ -18,6 +17,7 @@ const useAuth =
       auth.onAuthStateChanged((user: any) => {
         if (!user) {
           alert("로그인해주세요");
+          setUserInfo("");
           router.push("/login");
         } else {
           // recoil 전역변수 저장
