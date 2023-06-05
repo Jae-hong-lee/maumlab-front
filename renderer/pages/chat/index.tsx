@@ -2,12 +2,10 @@ import styled from "@emotion/styled";
 import useAuth from "../../src/common/utils/useAuth";
 
 import NavbarContainer from "../../src/component/ChattingPage/Navbar/navbar.container";
-import SearchContainer from "../../src/component/ChattingPage/Search/search.container";
 import ChatListContainer from "../../src/component/ChattingPage/ChatList/chatlist.container";
-import UserInfoContainer from "../../src/component/ChattingPage/UserInfo/userinfo.container";
-import MessagesContainer from "../../src/component/ChattingPage/Messages/messages.container";
-import MSInputContainer from "../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
 import FavoriteContainer from "../../src/component/ChattingPage/Favorited/favorite.container";
+import ChatPageId from "./[userid]";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -32,10 +30,23 @@ const SidebarWrapper = styled.div`
 `;
 
 const ChattingWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   flex: 2;
+  background-color: #c4f4da;
+  color: #c5c5c9;
+`;
+
+const Title = styled.a`
+  font-size: 48px;
+  font-weight: 700;
 `;
 
 function ChatPage() {
+  // Test
+  const [open, setOpen] = useState(false);
   return (
     <Wrapper>
       <ChatContainer>
@@ -46,9 +57,7 @@ function ChatPage() {
         </SidebarWrapper>
 
         <ChattingWrapper>
-          <UserInfoContainer />
-          <MessagesContainer />
-          <MSInputContainer />
+          {open ? <Title>Let's Get Started 🎉</Title> : <ChatPageId />}
         </ChattingWrapper>
       </ChatContainer>
     </Wrapper>

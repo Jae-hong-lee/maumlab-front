@@ -1,16 +1,104 @@
-import { Avatar, AvatarGroup, IconButton } from "@mui/material";
+import {
+  Avatar,
+  AvatarGroup,
+  Box,
+  Button,
+  Checkbox,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  TextField,
+  Typography,
+} from "@mui/material";
 import * as CLS from "./chatlist.style";
 import { IChatlist } from "./chatlist.type";
 import AddIcon from "@mui/icons-material/Add";
+import { Modal } from "@mui/material";
+import { ErrorText } from "../../../common/styles/ErrorMessage";
 
 export default function ChatListUI(props: IChatlist) {
   return (
     <CLS.Wrapper>
       <CLS.HadderBox>
         <CLS.HadderText>Chat Room (3)</CLS.HadderText>
-        <IconButton aria-label="add" color="primary">
+        {/* 채팅추가 */}
+        <IconButton aria-label="add" color="primary" onClick={props.handleOpen}>
           <AddIcon />
         </IconButton>
+        {/* 모달 */}
+        <Modal
+          open={props.open}
+          onClose={props.handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={CLS.style}>
+            <Typography id="modal-modal-title" variant="h4" component="h2">
+              채팅방 생성하기
+            </Typography>
+            <Typography id="modal-modal-subtitle" variant="h6" component="h4">
+              채팅방 추가할 상대를 선택해주세요! 👻
+            </Typography>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="ChatRoomName"
+              label="채팅방 제목"
+              name="ChatRoomName"
+              autoFocus
+              onChange={props.onChangeText}
+            />
+            <ErrorText>Error</ErrorText>
+
+            <Typography id="modal-modal-description" sx={{ m: 1 }}>
+              유저목록
+            </Typography>
+            <List
+              sx={{
+                width: "100%",
+                maxWidth: 360,
+                overflow: "auto",
+                maxHeight: 200,
+              }}
+            >
+              {[0, 1, 2, 3].map((value) => {
+                const labelId = `checkbox-list-label-${value}`;
+                return (
+                  <ListItem key={value} disablePadding>
+                    <ListItemButton
+                      role={undefined}
+                      onClick={props.handleToggle(value)}
+                      dense
+                    >
+                      <ListItemIcon>
+                        <Checkbox
+                          edge="start"
+                          checked={props.checked.indexOf(value) !== -1}
+                          tabIndex={-1}
+                          disableRipple
+                          inputProps={{ "aria-labelledby": labelId }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText
+                        id={labelId}
+                        primary={`유저정보 ${value + 1}`}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+
+            <Button variant="contained" onClick={props.onClickCreateRoom}>
+              대화 추가하기
+            </Button>
+            <Button onClick={props.handleClose}>Close</Button>
+          </Box>
+        </Modal>
       </CLS.HadderBox>
 
       {/* 1:1 채팅 */}

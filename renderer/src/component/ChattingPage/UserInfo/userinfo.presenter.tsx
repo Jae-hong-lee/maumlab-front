@@ -1,19 +1,26 @@
-import { IconButton } from "@mui/material";
+import { Checkbox } from "@mui/material";
 import * as UIS from "./userinfo.style";
 import { IUserInfo } from "./userinfo.type";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { useState } from "react";
+
 export default function UserInfoUI(props: IUserInfo) {
+  const label = { inputProps: { "aria-label": "Favorite Checkbox" } };
+  const [checked, setChecked] = useState(false);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+    console.log(checked);
+  };
   return (
     <UIS.Wrapper>
       <UIS.ChatInfoTitle>채팅방이름(닉네임)</UIS.ChatInfoTitle>
-      {/* 변화주기 */}
-      <IconButton aria-label="favorited" color="primary">
-        <FavoriteIcon />
-      </IconButton>
-      <IconButton aria-label="favorited" color="primary">
-        <FavoriteBorderIcon />
-      </IconButton>
+      {/* Favorite Btn */}
+      <Checkbox
+        {...label}
+        onChange={handleChange}
+        icon={<FavoriteBorder />}
+        checkedIcon={<Favorite />}
+      />
     </UIS.Wrapper>
   );
 }
