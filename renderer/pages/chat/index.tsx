@@ -46,7 +46,8 @@ const Title = styled.a`
 
 function ChatPage() {
   // Test
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+
   return (
     <Wrapper>
       <ChatContainer>
@@ -65,6 +66,6 @@ function ChatPage() {
 }
 
 // useAuth 추가.
-// export default useAuth(ChatPage);
+export default useAuth(ChatPage);
 
-export default ChatPage;
+// export default ChatPage;

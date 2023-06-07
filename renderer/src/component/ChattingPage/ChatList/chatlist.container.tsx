@@ -1,13 +1,27 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import ChatListUI from "./chatlist.presenter";
+import { useRouter } from "next/router";
+import UserData from "../../../common/firebase/database/UserData";
+import { useRecoilState } from "recoil";
+import { LoginInfo } from "../../../common/recoil/userInfo";
 
 export default function ChatListContainer() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState([0]);
   const [roomname, setRoomname] = useState("");
+  const [userList, setUserList] = useState([]);
+
+  const [UserInfo] = useRecoilState(LoginInfo);
+  const { fetchAllUser } = UserData();
 
   // Modal Control
-  const handleOpen = () => setOpen(true);
+  const handleOpen = async () => {
+    const res = await fetchAllUser(UserInfo.uid);
+    setUserList(res);
+
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   // UserList CheckBox
@@ -42,6 +56,11 @@ export default function ChatListContainer() {
     handleClose();
   };
 
+  // *Router
+  const onClickRoom = (room: any) => {
+    router.push(`/chat/${room.uid}`);
+  };
+
   return (
     <ChatListUI
       roomname={roomname}
@@ -55,6 +74,7 @@ export default function ChatListContainer() {
       setChecked={setChecked}
       onClickCreateRoom={onClickCreateRoom}
       handleToggle={handleToggle}
+      userList={userList}
     />
   );
 }

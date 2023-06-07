@@ -20,6 +20,7 @@ import { Modal } from "@mui/material";
 import { ErrorText } from "../../../common/styles/ErrorMessage";
 
 export default function ChatListUI(props: IChatlist) {
+  console.log(props.userList);
   return (
     <CLS.Wrapper>
       <CLS.HadderBox>
@@ -57,7 +58,41 @@ export default function ChatListUI(props: IChatlist) {
             <Typography id="modal-modal-description" sx={{ m: 1 }}>
               유저목록
             </Typography>
+
             <List
+              sx={{
+                width: "100%",
+                maxWidth: 360,
+                overflow: "auto",
+                maxHeight: 200,
+              }}
+            >
+              {props.userList?.map((el) => {
+                const labelId = `checkbox-list-label-${el.nickName}`;
+                return (
+                  <ListItem key={el.uid} disablePadding>
+                    <ListItemButton
+                      role={undefined}
+                      onClick={props.handleToggle(el.nickName)}
+                      dense
+                    >
+                      <ListItemIcon>
+                        <Checkbox
+                          edge="start"
+                          checked={props.checked.indexOf(el.nickName) !== -1}
+                          tabIndex={-1}
+                          disableRipple
+                          inputProps={{ "aria-labelledby": labelId }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText id={labelId} primary={`${el.nickName}`} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+
+            {/* <List
               sx={{
                 width: "100%",
                 maxWidth: 360,
@@ -91,7 +126,7 @@ export default function ChatListUI(props: IChatlist) {
                   </ListItem>
                 );
               })}
-            </List>
+            </List> */}
 
             <Button variant="contained" onClick={props.onClickCreateRoom}>
               대화 추가하기

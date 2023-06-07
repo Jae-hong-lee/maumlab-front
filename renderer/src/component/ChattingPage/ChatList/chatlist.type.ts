@@ -13,4 +13,6 @@ export interface IChatlist {
   setChecked: Dispatch<SetStateAction<number[]>>;
   handleToggle: (value: number) => () => void;
   onClickCreateRoom: () => void;
+
+  userList: any;
 }
