@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import ChatListUI from "./chatlist.presenter";
 import { useRouter } from "next/router";
 import UserData from "../../../common/firebase/database/UserData";
