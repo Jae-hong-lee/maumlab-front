@@ -1,14 +1,16 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import ChatListUI from "./chatlist.presenter";
 import { useRouter } from "next/router";
 import UserData from "../../../common/firebase/database/UserData";
 import { useRecoilState } from "recoil";
 import { LoginInfo } from "../../../common/recoil/userInfo";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../../../common/firebase/firebase";
 
 export default function ChatListContainer() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState([]);
   const [roomname, setRoomname] = useState("");
   const [userList, setUserList] = useState([]);
 
@@ -16,27 +18,31 @@ export default function ChatListContainer() {
   const { fetchAllUser } = UserData();
 
   // Modal Control
-  const handleOpen = async () => {
-    const res = await fetchAllUser(UserInfo.uid);
-    setUserList(res);
 
+  const handleOpen = async () => {
+    const userList = await fetchAllUser(UserInfo.uid);
+    setUserList(userList);
     setOpen(true);
   };
-  const handleClose = () => setOpen(false);
+
+  const handleClose = () => {
+    setRoomname("");
+    setChecked([]);
+    setOpen(false);
+  };
 
   // UserList CheckBox
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
+  const handleToggle = (uid: string) => () => {
+    const currentIndex = checked.indexOf(uid);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(uid);
     } else {
       newChecked.splice(currentIndex, 1);
     }
 
     setChecked(newChecked);
-    console.log(checked);
   };
 
   // CreateRoomTitle
@@ -45,14 +51,41 @@ export default function ChatListContainer() {
   };
 
   // CreateRoom Btn
-  const onClickCreateRoom = () => {
-    // if (roomname === "" && checked.length === 0) {
-    //   return;
-    // }
-    console.log(checked, roomname);
-    if (checked.length === 0) {
-      console.log("채팅추가 대상이 없습니다.");
+  const onClickCreateRoom = async () => {
+    if (roomname === "" || checked.length === 0) {
+      if (checked.length === 0) {
+        console.log("채팅추가 대상이 없습니다.");
+        return;
+      } else if (roomname === "") {
+        console.log("채팅방 이름을 정해주세요.");
+        return;
+      }
     }
+    console.log("채팅방 생성");
+    console.log(checked, roomname);
+
+    // firebase
+    const ChatID = UserInfo.uid + "," + checked;
+    console.log(ChatID);
+    try {
+      const res = await getDoc(doc(db, "chats", ChatID));
+
+      if (!res.exists()) {
+        // 2. 사용자 채팅 생성 res 데이터가 없다면
+        // chats 컬렉션 생성 messages 라는 객체를 담아서 (roomname, RoomId)
+        try {
+          await setDoc(doc(db, "chats", roomname), {
+            RoomID: ChatID,
+            messages: [],
+          });
+        } catch (error) {
+          console.log("에러", error.message);
+        }
+      }
+    } catch (error: any) {
+      console.log("에러", error.message);
+    }
+
     handleClose();
   };
 

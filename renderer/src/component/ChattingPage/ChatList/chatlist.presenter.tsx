@@ -20,7 +20,7 @@ import { Modal } from "@mui/material";
 import { ErrorText } from "../../../common/styles/ErrorMessage";
 
 export default function ChatListUI(props: IChatlist) {
-  console.log(props.userList);
+  // console.log(props.userList, "prop유저리스트");
   return (
     <CLS.Wrapper>
       <CLS.HadderBox>
@@ -67,19 +67,19 @@ export default function ChatListUI(props: IChatlist) {
                 maxHeight: 200,
               }}
             >
-              {props.userList?.map((el) => {
-                const labelId = `checkbox-list-label-${el.nickName}`;
+              {props.userList?.map((el: any) => {
+                const labelId = `${el.uid}`;
                 return (
                   <ListItem key={el.uid} disablePadding>
                     <ListItemButton
                       role={undefined}
-                      onClick={props.handleToggle(el.nickName)}
+                      onClick={props.handleToggle(el.uid)}
                       dense
                     >
                       <ListItemIcon>
                         <Checkbox
                           edge="start"
-                          checked={props.checked.indexOf(el.nickName) !== -1}
+                          checked={props.checked.indexOf(el.uid) !== -1}
                           tabIndex={-1}
                           disableRipple
                           inputProps={{ "aria-labelledby": labelId }}

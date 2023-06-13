@@ -11,7 +11,7 @@ export interface IChatlist {
   handleClose: () => void;
   checked: number[];
   setChecked: Dispatch<SetStateAction<number[]>>;
-  handleToggle: (value: number) => () => void;
+  handleToggle: (uid: string) => () => void;
   onClickCreateRoom: () => void;
 
   userList: any;
