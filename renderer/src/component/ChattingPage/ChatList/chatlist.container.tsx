@@ -32,7 +32,9 @@ export default function ChatListContainer() {
   };
 
   // UserList CheckBox
-  const handleToggle = (uid: string) => () => {
+  const handleToggle = (uid: string, nickName: string) => () => {
+    console.log(uid, nickName);
+
     const currentIndex = checked.indexOf(uid);
     const newChecked = [...checked];
 
@@ -52,39 +54,28 @@ export default function ChatListContainer() {
 
   // CreateRoom Btn
   const onClickCreateRoom = async () => {
-    if (roomname === "" || checked.length === 0) {
-      if (checked.length === 0) {
-        console.log("채팅추가 대상이 없습니다.");
-        return;
-      } else if (roomname === "") {
-        console.log("채팅방 이름을 정해주세요.");
-        return;
-      }
+    console.log(UserInfo.uid, checked);
+
+    const ChatID = UserInfo.uid + "@" + checked;
+    console.log(ChatID);
+
+    if (checked.length === 0) {
+      console.log("채팅추가 대상이 없습니다.");
+      return;
+    } else if (roomname === "") {
+      // setRoomname(ChatID);
+      console.log("채팅방 이름을 정해주세요.");
+      return;
+    } else if (checked.length > 1) {
+      console.log("1:N 채팅방");
     }
+
     console.log("채팅방 생성");
     console.log(checked, roomname);
 
-    // firebase
-    const ChatID = UserInfo.uid + "," + checked;
-    console.log(ChatID);
-    try {
-      const res = await getDoc(doc(db, "chats", ChatID));
+    // firebase Create Room
 
-      if (!res.exists()) {
-        // 2. 사용자 채팅 생성 res 데이터가 없다면
-        // chats 컬렉션 생성 messages 라는 객체를 담아서 (roomname, RoomId)
-        try {
-          await setDoc(doc(db, "chats", roomname), {
-            RoomID: ChatID,
-            messages: [],
-          });
-        } catch (error) {
-          console.log("에러", error.message);
-        }
-      }
-    } catch (error: any) {
-      console.log("에러", error.message);
-    }
+    // router.push(`/chat/${UserInfo.uid}`);
 
     handleClose();
   };

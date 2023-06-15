@@ -73,7 +73,7 @@ export default function ChatListUI(props: IChatlist) {
                   <ListItem key={el.uid} disablePadding>
                     <ListItemButton
                       role={undefined}
-                      onClick={props.handleToggle(el.uid)}
+                      onClick={props.handleToggle(el.uid, el.nickName)}
                       dense
                     >
                       <ListItemIcon>

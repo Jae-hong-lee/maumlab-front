@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 import {
+  addDoc,
   collection,
   doc,
   getDocs,
@@ -81,6 +82,16 @@ export default function AuthDataSource() {
         uid,
         rooms: [],
       });
+      // 유저가 가지고 있는 채팅방 collection 생성
+      try {
+        await addDoc(collection(db, "UserChats"), {
+          email,
+          nickName,
+          uid,
+        });
+      } catch {
+        console.log("collection 생성 실패");
+      }
     } catch (error) {
       console.log("유저정보저장실패");
     }
