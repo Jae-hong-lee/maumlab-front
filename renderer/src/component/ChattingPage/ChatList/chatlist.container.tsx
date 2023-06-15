@@ -1,11 +1,10 @@
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import ChatListUI from "./chatlist.presenter";
 import { useRouter } from "next/router";
 import UserData from "../../../common/firebase/database/UserData";
 import { useRecoilState } from "recoil";
 import { LoginInfo } from "../../../common/recoil/userInfo";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../../../common/firebase/firebase";
+import CreateRoom from "../../../common/firebase/database/RoomData";
 
 export default function ChatListContainer() {
   const router = useRouter();
@@ -16,15 +15,15 @@ export default function ChatListContainer() {
 
   const [UserInfo] = useRecoilState(LoginInfo);
   const { fetchAllUser } = UserData();
+  const { createPersonalChatRoom } = CreateRoom();
 
   // Modal Control
-
   const handleOpen = async () => {
+    // 유저리스트 가져오기
     const userList = await fetchAllUser(UserInfo.uid);
     setUserList(userList);
     setOpen(true);
   };
-
   const handleClose = () => {
     setRoomname("");
     setChecked([]);
@@ -32,14 +31,12 @@ export default function ChatListContainer() {
   };
 
   // UserList CheckBox
-  const handleToggle = (uid: string, nickName: string) => () => {
-    console.log(uid, nickName);
-
-    const currentIndex = checked.indexOf(uid);
+  const handleToggle = (nickName: string) => () => {
+    const currentIndex = checked.indexOf(nickName);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(uid);
+      newChecked.push(nickName);
     } else {
       newChecked.splice(currentIndex, 1);
     }
@@ -54,25 +51,37 @@ export default function ChatListContainer() {
 
   // CreateRoom Btn
   const onClickCreateRoom = async () => {
-    console.log(UserInfo.uid, checked);
-
-    const ChatID = UserInfo.uid + "@" + checked;
-    console.log(ChatID);
+    const ChatRoomName = UserInfo.displayName + "," + checked;
 
     if (checked.length === 0) {
       console.log("채팅추가 대상이 없습니다.");
       return;
-    } else if (roomname === "") {
-      // setRoomname(ChatID);
-      console.log("채팅방 이름을 정해주세요.");
-      return;
-    } else if (checked.length > 1) {
-      console.log("1:N 채팅방");
+    }
+    // 룸 이름 설정
+    if (roomname === "") {
+      if (checked.length > 1) {
+        console.log("1:N 채팅방");
+        console.log(checked, ChatRoomName);
+      } else {
+        console.log("1:1 채팅방", UserInfo.displayName, checked);
+
+        let CreateRoom = await createPersonalChatRoom(
+          UserInfo.displayName,
+          checked.join("")
+        );
+        console.log(CreateRoom);
+      }
+    } else {
+      if (checked.length > 1) {
+        console.log("1:N 채팅방");
+        console.log(checked, roomname);
+      } else {
+        console.log("1:1 채팅방");
+        console.log(checked, roomname);
+      }
     }
 
-    console.log("채팅방 생성");
-    console.log(checked, roomname);
-
+    console.log("채팅방 생성성공");
     // firebase Create Room
 
     // router.push(`/chat/${UserInfo.uid}`);

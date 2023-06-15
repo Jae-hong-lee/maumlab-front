@@ -16,5 +16,6 @@ export default function UserData() {
 
     return userList;
   };
+
   return { fetchAllUser };
 }

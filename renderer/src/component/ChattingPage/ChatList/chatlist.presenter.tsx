@@ -20,7 +20,6 @@ import { Modal } from "@mui/material";
 import { ErrorText } from "../../../common/styles/ErrorMessage";
 
 export default function ChatListUI(props: IChatlist) {
-  // console.log(props.userList, "prop유저리스트");
   return (
     <CLS.Wrapper>
       <CLS.HadderBox>
@@ -73,13 +72,13 @@ export default function ChatListUI(props: IChatlist) {
                   <ListItem key={el.uid} disablePadding>
                     <ListItemButton
                       role={undefined}
-                      onClick={props.handleToggle(el.uid, el.nickName)}
+                      onClick={props.handleToggle(el.nickName)}
                       dense
                     >
                       <ListItemIcon>
                         <Checkbox
                           edge="start"
-                          checked={props.checked.indexOf(el.uid) !== -1}
+                          checked={props.checked.indexOf(el.nickName) !== -1}
                           tabIndex={-1}
                           disableRipple
                           inputProps={{ "aria-labelledby": labelId }}
@@ -91,42 +90,6 @@ export default function ChatListUI(props: IChatlist) {
                 );
               })}
             </List>
-
-            {/* <List
-              sx={{
-                width: "100%",
-                maxWidth: 360,
-                overflow: "auto",
-                maxHeight: 200,
-              }}
-            >
-              {[0, 1, 2, 3].map((value) => {
-                const labelId = `checkbox-list-label-${value}`;
-                return (
-                  <ListItem key={value} disablePadding>
-                    <ListItemButton
-                      role={undefined}
-                      onClick={props.handleToggle(value)}
-                      dense
-                    >
-                      <ListItemIcon>
-                        <Checkbox
-                          edge="start"
-                          checked={props.checked.indexOf(value) !== -1}
-                          tabIndex={-1}
-                          disableRipple
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </ListItemIcon>
-                      <ListItemText
-                        id={labelId}
-                        primary={`유저정보 ${value + 1}`}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List> */}
 
             <Button variant="contained" onClick={props.onClickCreateRoom}>
               대화 추가하기

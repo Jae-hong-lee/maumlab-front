@@ -9,9 +9,9 @@ export interface IChatlist {
   setOpen: Dispatch<SetStateAction<Boolean>>;
   handleOpen: () => void;
   handleClose: () => void;
-  checked: number[];
+  checked: any[];
   setChecked: Dispatch<SetStateAction<number[]>>;
-  handleToggle: (uid: string, nickName: string) => () => void;
+  handleToggle: (nickName: string) => () => void;
   onClickCreateRoom: () => void;
 
   userList: any;
