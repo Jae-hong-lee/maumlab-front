@@ -72,13 +72,13 @@ export default function ChatListUI(props: IChatlist) {
                   <ListItem key={el.uid} disablePadding>
                     <ListItemButton
                       role={undefined}
-                      onClick={props.handleToggle(el.nickName)}
+                      onClick={props.handleToggle(el)}
                       dense
                     >
                       <ListItemIcon>
                         <Checkbox
                           edge="start"
-                          checked={props.checked.indexOf(el.nickName) !== -1}
+                          checked={props.checkedUid.indexOf(el.uid) !== -1}
                           tabIndex={-1}
                           disableRipple
                           inputProps={{ "aria-labelledby": labelId }}
