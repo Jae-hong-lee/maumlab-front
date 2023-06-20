@@ -1,10 +1,11 @@
 import {
   DocumentData,
+  DocumentReference,
   QueryDocumentSnapshot,
   addDoc,
+  arrayUnion,
   collection,
   doc,
-  getDoc,
   getDocs,
   limit,
   query,
@@ -15,7 +16,11 @@ import { db } from "../firebase";
 
 export default function CreateRoom() {
   // 1:1 채팅방 생성
-  const createPersonalChatRoom = async (uid: any, pairUid: any) => {
+  const createPersonalChatRoom = async (
+    uid: any,
+    pairUid: any,
+    roomname: string
+  ) => {
     const personalChatRoomRef = collection(db, "PersonalChatRooms");
 
     const existRoomId = await findPersonalChatRoom(uid, pairUid);
@@ -25,11 +30,11 @@ export default function CreateRoom() {
       users: [uid, pairUid],
       message: [],
       type: "1:1",
+      roomname,
     });
 
-    // const updateProfile = await updateDoc(doc(db,"Users",uid)),{
-    //   rooms:arrayUnion(roomRef)
-    // }
+    // 사용자의 rooms 필드에 room uid 추가
+    await UsersUpdateRoom([uid, pairUid], roomDocRef);
 
     return roomDocRef.id;
   };
@@ -60,5 +65,20 @@ export default function CreateRoom() {
     // roooms 배열에 첫번째 인수의 id 를 return
     return rooms[0]?.id;
   };
+
+  // 사용자(Users)의  room필드에 room uid 추가
+  // arrayUnion : 배열 추가하기
+  const UsersUpdateRoom = async (
+    uids: string[],
+    roomDocRef: DocumentReference<DocumentData>
+  ) => {
+    uids.map((uid: string) => {
+      updateDoc(doc(db, "Users", uid), {
+        rooms: arrayUnion(roomDocRef),
+        // rooms: roomDocRef,
+      });
+    });
+  };
+
   return { createPersonalChatRoom };
 }

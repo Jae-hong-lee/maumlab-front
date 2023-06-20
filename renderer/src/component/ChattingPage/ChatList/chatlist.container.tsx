@@ -5,7 +5,6 @@ import UserData from "../../../common/firebase/database/UserData";
 import { useRecoilState } from "recoil";
 import { LoginInfo } from "../../../common/recoil/userInfo";
 import CreateRoom from "../../../common/firebase/database/RoomData";
-import { ElevatorSharp } from "@mui/icons-material";
 
 export default function ChatListContainer() {
   const router = useRouter();
@@ -60,7 +59,7 @@ export default function ChatListContainer() {
 
   // CreateRoom Btn
   const onClickCreateRoom = async () => {
-    const ChatRoomName = UserInfo.displayName + "," + checkedNick;
+    const ChatRoomName = UserInfo.displayName + "," + checkedNick.join();
 
     if (checkedUid.length === 0) {
       console.log("채팅추가 대상이 없습니다.");
@@ -70,23 +69,24 @@ export default function ChatListContainer() {
     if (roomname === "") {
       if (checkedUid.length > 1) {
         console.log("1:N 채팅방");
-        console.log(checkedUid, ChatRoomName);
       } else {
-        console.log("1:1 채팅방", UserInfo.displayName, checkedUid);
-
         let CreateRoom = await createPersonalChatRoom(
           UserInfo.uid,
-          checkedUid.join("")
+          checkedUid.join(""),
+          ChatRoomName
         );
         console.log(CreateRoom);
       }
     } else {
       if (checkedUid.length > 1) {
         console.log("1:N 채팅방");
-        console.log(checkedUid, roomname);
       } else {
-        console.log("1:1 채팅방");
-        console.log(checkedUid, roomname);
+        let CreateRoom = await createPersonalChatRoom(
+          UserInfo.uid,
+          checkedUid.join(""),
+          roomname
+        );
+        console.log(CreateRoom);
       }
     }
 
