@@ -67,13 +67,13 @@ export default function CreateRoom() {
   };
 
   // 사용자(Users)의  room필드에 room uid 추가
-  // arrayUnion : 배열 추가하기
+  // arrayUnion()은 배열에 없는 요소만 추가
   const UsersUpdateRoom = async (
     uids: string[],
     roomDocRef: DocumentReference<DocumentData>
   ) => {
-    uids.map((uid: string) => {
-      updateDoc(doc(db, "Users", uid), {
+    uids.map(async (uid: string) => {
+      await updateDoc(doc(db, "Users", uid), {
         rooms: arrayUnion(roomDocRef),
         // rooms: roomDocRef,
       });
