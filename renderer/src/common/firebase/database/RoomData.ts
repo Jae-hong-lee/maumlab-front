@@ -39,6 +39,27 @@ export default function CreateRoom() {
     return roomDocRef.id;
   };
 
+  // 1:N 채팅방 생성
+  const createOpenChatRoom = async (
+    uids: string[],
+    title: string,
+    hostUid: any
+  ) => {
+    const OpenChatRoomRef = collection(db, "OpenChatRooms");
+
+    const roomDocRef = await addDoc(OpenChatRoomRef, {
+      users: uids,
+      title,
+      hostUid,
+      message: [],
+      type: "1:N",
+    });
+
+    await UsersUpdateRoom([...uids, hostUid], roomDocRef);
+
+    return roomDocRef.id;
+  };
+
   // 1:1 채팅방이 존재하는가??
   const findPersonalChatRoom = async (uid: string, pairUid: string) => {
     const personalChatRoomRef = collection(db, "PersonalChatRooms");
@@ -80,5 +101,5 @@ export default function CreateRoom() {
     });
   };
 
-  return { createPersonalChatRoom };
+  return { createPersonalChatRoom, createOpenChatRoom };
 }

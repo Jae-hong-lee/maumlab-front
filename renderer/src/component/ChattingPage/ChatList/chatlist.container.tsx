@@ -17,7 +17,7 @@ export default function ChatListContainer() {
 
   const [UserInfo] = useRecoilState(LoginInfo);
   const { fetchAllUser } = UserData();
-  const { createPersonalChatRoom } = CreateRoom();
+  const { createPersonalChatRoom, createOpenChatRoom } = CreateRoom();
 
   // Modal Control
   const handleOpen = async () => {
@@ -69,6 +69,12 @@ export default function ChatListContainer() {
     if (roomname === "") {
       if (checkedUid.length > 1) {
         console.log("1:N 채팅방");
+        let CreateOpenChat = await createOpenChatRoom(
+          checkedUid,
+          ChatRoomName,
+          UserInfo.uid
+        );
+        console.log(CreateOpenChat);
       } else {
         let CreateRoom = await createPersonalChatRoom(
           UserInfo.uid,
