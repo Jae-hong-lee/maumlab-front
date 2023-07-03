@@ -5,7 +5,9 @@ import NavbarContainer from "../../src/component/ChattingPage/Navbar/navbar.cont
 import ChatListContainer from "../../src/component/ChattingPage/ChatList/chatlist.container";
 import FavoriteContainer from "../../src/component/ChattingPage/Favorited/favorite.container";
 import ChatPageId from "./[userid]";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CreateRoom from "../../src/common/firebase/database/RoomData";
+import { useRouter } from "next/router";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -48,6 +50,13 @@ function ChatPage() {
   // Test
   const [open, setOpen] = useState(true);
 
+  const { fetchUserList } = CreateRoom();
+  const router = useRouter();
+  console.log(router.asPath);
+  useEffect(() => {
+    fetchUserList("HcOwNe7XbQWhrv6ifsYgJHJRRRq1");
+  }, []);
+
   return (
     <Wrapper>
       <ChatContainer>
@@ -66,6 +75,6 @@ function ChatPage() {
 }
 
 // useAuth 추가.
-export default useAuth(ChatPage);
+// export default useAuth(ChatPage);
 
-// export default ChatPage;
+export default ChatPage;

@@ -5,8 +5,9 @@ import UserData from "../../../common/firebase/database/UserData";
 import { useRecoilState } from "recoil";
 import { LoginInfo } from "../../../common/recoil/userInfo";
 import CreateRoom from "../../../common/firebase/database/RoomData";
+import { IListContainer } from "./chatlist.type";
 
-export default function ChatListContainer() {
+export default function ChatListContainer(props: IListContainer) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [userList, setUserList] = useState([]);
@@ -86,6 +87,12 @@ export default function ChatListContainer() {
     } else {
       if (checkedUid.length > 1) {
         console.log("1:N 채팅방");
+        let CreateOpenChat = await createOpenChatRoom(
+          checkedUid,
+          roomname,
+          UserInfo.uid
+        );
+        console.log(CreateOpenChat);
       } else {
         let CreateRoom = await createPersonalChatRoom(
           UserInfo.uid,
@@ -97,8 +104,8 @@ export default function ChatListContainer() {
     }
 
     console.log("채팅방 생성성공");
-    // firebase Create Room
 
+    // firebase Create Room
     // router.push(`/chat/${UserInfo.uid}`);
 
     handleClose();
@@ -123,6 +130,7 @@ export default function ChatListContainer() {
       onClickCreateRoom={onClickCreateRoom}
       handleToggle={handleToggle}
       userList={userList}
+      LoginUserList={props.LoginUserList}
     />
   );
 }

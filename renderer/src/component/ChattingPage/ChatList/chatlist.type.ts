@@ -1,5 +1,8 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
+export interface IListContainer {
+  LoginUserList: any;
+}
 export interface IChatlist {
   roomname: string;
   setRoomname: Dispatch<SetStateAction<string>>;
@@ -15,4 +18,5 @@ export interface IChatlist {
   onClickCreateRoom: () => void;
 
   userList: any;
+  LoginUserList: any;
 }

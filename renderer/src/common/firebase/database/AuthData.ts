@@ -49,7 +49,8 @@ export default function AuthDataSource() {
   // 기존 사용자 로그인
   const login = async (email: string, password: string) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const LoginUser = await signInWithEmailAndPassword(auth, email, password);
+      return LoginUser.user.uid;
     } catch (e) {
       if (e instanceof Error) {
         if (e.message.includes("(auth/email-already-in-use)"))

@@ -20,6 +20,10 @@ import { Modal } from "@mui/material";
 import { ErrorText } from "../../../common/styles/ErrorMessage";
 
 export default function ChatListUI(props: IChatlist) {
+  console.log(props.LoginUserList);
+  // console.log(
+  //   props.LoginUserList.then((res) => res.map((e) => console.log(e)))
+  // );
   return (
     <CLS.Wrapper>
       <CLS.HadderBox>
@@ -101,23 +105,31 @@ export default function ChatListUI(props: IChatlist) {
       </CLS.HadderBox>
 
       {/* 1:1 채팅 */}
-      <CLS.UserChatInfo>
+      {props.LoginUserList.map((e: any, idx: number) => (
+        // <>{e.type}</>
+        <CLS.UserChatInfo>
+          <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
+          <div>
+            <CLS.UserName>{e.roomname}</CLS.UserName>
+            <CLS.LatestMessage>{e.type}</CLS.LatestMessage>
+          </div>
+        </CLS.UserChatInfo>
+      ))}
+      {/* <CLS.UserChatInfo>
         <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
         <div>
           <CLS.UserName>닉네임</CLS.UserName>
           <CLS.LatestMessage>최근메세지</CLS.LatestMessage>
         </div>
       </CLS.UserChatInfo>
-
       <CLS.UserChatInfo>
         <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
         <div>
           <CLS.UserName>닉네임2</CLS.UserName>
           <CLS.LatestMessage>최근메세지2</CLS.LatestMessage>
         </div>
-      </CLS.UserChatInfo>
+      </CLS.UserChatInfo> */}
 
-      {/* 그룹채팅 */}
       <CLS.UserChatInfo>
         <AvatarGroup max={4}>
           <Avatar alt="Remy Sharp" />

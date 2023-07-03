@@ -6,6 +6,7 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDoc,
   getDocs,
   limit,
   query,
@@ -42,14 +43,14 @@ export default function CreateRoom() {
   // 1:N 채팅방 생성
   const createOpenChatRoom = async (
     uids: string[],
-    title: string,
+    roomname: string,
     hostUid: any
   ) => {
     const OpenChatRoomRef = collection(db, "OpenChatRooms");
 
     const roomDocRef = await addDoc(OpenChatRoomRef, {
       users: uids,
-      title,
+      roomname,
       hostUid,
       message: [],
       type: "1:N",
@@ -96,10 +97,48 @@ export default function CreateRoom() {
     uids.map(async (uid: string) => {
       await updateDoc(doc(db, "Users", uid), {
         rooms: arrayUnion(roomDocRef),
-        // rooms: roomDocRef,
       });
     });
   };
 
-  return { createPersonalChatRoom, createOpenChatRoom };
+  /**
+   * 현재 로그인한 유저가 속해있는 채팅방 가져오기
+   * @param currentUserUid 로그인한 유저의 uid
+   * @returns 방 리스트
+   */
+  const fetchUserList = async (currentUserUid: any) => {
+    const docRef = doc(db, "Users", currentUserUid);
+    const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
+
+    const RoomDocs = await Promise.all(
+      currentUserRoomsDoc.map((roomRef: any) => getDoc(roomRef))
+    );
+    const res = await Promise.all(
+      RoomDocs.map(async (e) => {
+        // "로그인 유저가 가지고 있는 id들"
+        const userIds = await e
+          .data()
+          ?.users?.filter((id: string) => !id.includes(currentUserUid));
+
+        // 로그인 유저가 가질 수 있는 상대유저정보들
+        const userDocs = await Promise.all(
+          userIds.map((id: string) => getDoc(doc(db, "Users", id)))
+        );
+        const users = userDocs.map((userDoc: any) => userDoc.data());
+
+        // 로그인 유저가 가지고 있는 메세지들
+        // const messages =
+
+        return {
+          ...e.data(),
+          users,
+          uid: e.id,
+        };
+      })
+    );
+
+    return res;
+  };
+
+  return { createPersonalChatRoom, createOpenChatRoom, fetchUserList };
 }
