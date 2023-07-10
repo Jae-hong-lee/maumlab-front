@@ -17,6 +17,7 @@ export default function LoginContainer() {
     try {
       const res = await login(userData.email, userData.password);
       router.push(`/chat/${res}`);
+      // router.push("/chat");
     } catch (e) {
       if (e instanceof Error) {
         alert(e.message);

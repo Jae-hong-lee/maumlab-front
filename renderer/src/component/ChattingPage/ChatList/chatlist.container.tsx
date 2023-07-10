@@ -102,22 +102,20 @@ export default function ChatListContainer(props: IListContainer) {
         console.log(CreateRoom);
       }
     }
-
     console.log("채팅방 생성성공");
-
-    // firebase Create Room
     // router.push(`/chat/${UserInfo.uid}`);
 
     handleClose();
   };
 
   // *Router
-  const onClickRoom = (e) => {
-    router.push(`/chat/${e.target.id}`);
+  const onClickSelectRoom = (e: any) => {
+    router.push(`/chat/${UserInfo.uid + "#" + e.uid}`);
   };
 
   return (
     <ChatListUI
+      onClickSelectRoom={onClickSelectRoom}
       roomname={roomname}
       setRoomname={setRoomname}
       onChangeText={onChangeText}

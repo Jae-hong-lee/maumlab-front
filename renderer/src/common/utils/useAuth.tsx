@@ -17,8 +17,8 @@ const useAuth =
       auth.onAuthStateChanged((user: any) => {
         if (!user) {
           alert("로그인해주세요");
-          setUserInfo("");
           router.push("/login");
+          setUserInfo("");
         } else {
           // recoil 전역변수 저장
           // prop을 직접적으로 저장하면서 type 에러가 나옴 -> stringfy, parse 를 이용하여 전역변수로 저장

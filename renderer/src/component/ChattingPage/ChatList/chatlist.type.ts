@@ -16,7 +16,7 @@ export interface IChatlist {
   setCheckedUid: Dispatch<SetStateAction<number[]>>;
   handleToggle: (nickName: string) => () => void;
   onClickCreateRoom: () => void;
-
+  onClickSelectRoom: (e: any) => void;
   userList: any;
   LoginUserList: any;
 }

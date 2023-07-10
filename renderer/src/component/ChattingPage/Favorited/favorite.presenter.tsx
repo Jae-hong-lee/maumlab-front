@@ -8,8 +8,8 @@ export default function FavoritePresenter() {
     <FS.Wrapper>
       <FS.HadderText>⭐️ Favorited Room (3)</FS.HadderText>
       <div>
-        {ExRoom.map((el) => (
-          <FS.RoomBox>
+        {ExRoom.map((el, idx) => (
+          <FS.RoomBox key={el + idx}>
             <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
             <div>{el}</div>
           </FS.RoomBox>

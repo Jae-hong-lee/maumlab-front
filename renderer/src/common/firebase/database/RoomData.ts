@@ -107,7 +107,8 @@ export default function CreateRoom() {
    * @returns 방 리스트
    */
   const fetchUserList = async (currentUserUid: any) => {
-    const docRef = doc(db, "Users", currentUserUid);
+    const userUid = currentUserUid.split("#")[0];
+    const docRef = doc(db, "Users", userUid);
     const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
 
     const RoomDocs = await Promise.all(
@@ -118,7 +119,7 @@ export default function CreateRoom() {
         // "로그인 유저가 가지고 있는 id들"
         const userIds = await e
           .data()
-          ?.users?.filter((id: string) => !id.includes(currentUserUid));
+          ?.users?.filter((id: string) => !id.includes(userUid));
 
         // 로그인 유저가 가질 수 있는 상대유저정보들
         const userDocs = await Promise.all(

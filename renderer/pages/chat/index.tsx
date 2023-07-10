@@ -8,6 +8,8 @@ import ChatPageId from "./[userid]";
 import { useEffect, useState } from "react";
 import CreateRoom from "../../src/common/firebase/database/RoomData";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { LoginInfo } from "../../src/common/recoil/userInfo";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -52,9 +54,18 @@ function ChatPage() {
 
   const { fetchUserList } = CreateRoom();
   const router = useRouter();
-  console.log(router.asPath);
+  // const [userInfo] = useRecoilState(LoginInfo);
+
+  const [List, setList] = useState([]);
+
   useEffect(() => {
-    fetchUserList("HcOwNe7XbQWhrv6ifsYgJHJRRRq1");
+    const fetchData = async () => {
+      const FetchList = await fetchUserList(`${router.asPath.split("/")[2]}`);
+      const json = [...FetchList];
+      setList(json);
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -63,7 +74,7 @@ function ChatPage() {
         <SidebarWrapper>
           <NavbarContainer />
           <FavoriteContainer />
-          <ChatListContainer />
+          <ChatListContainer LoginUserList={List} />
         </SidebarWrapper>
 
         <ChattingWrapper>
@@ -75,6 +86,6 @@ function ChatPage() {
 }
 
 // useAuth 추가.
-// export default useAuth(ChatPage);
+export default useAuth(ChatPage);
 
-export default ChatPage;
+// export default ChatPage;

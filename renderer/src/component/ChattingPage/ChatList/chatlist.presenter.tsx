@@ -20,7 +20,6 @@ import { Modal } from "@mui/material";
 import { ErrorText } from "../../../common/styles/ErrorMessage";
 
 export default function ChatListUI(props: IChatlist) {
-  console.log(props.LoginUserList);
   return (
     <CLS.Wrapper>
       <CLS.HadderBox>
@@ -71,7 +70,7 @@ export default function ChatListUI(props: IChatlist) {
                 const labelId = `${el.uid}`;
 
                 return (
-                  <ListItem key={el.uid} disablePadding>
+                  <ListItem key={`chatList+${el.uid}`} disablePadding>
                     <ListItemButton
                       role={undefined}
                       onClick={props.handleToggle(el)}
@@ -103,7 +102,12 @@ export default function ChatListUI(props: IChatlist) {
 
       {/* 1:1 채팅 */}
       {props.LoginUserList.map((e: any, idx: number) => (
-        <CLS.UserChatInfo>
+        <CLS.UserChatInfo
+          onClick={() => {
+            props.onClickSelectRoom(e);
+          }}
+          key={`userInfo+${e.uid}`}
+        >
           <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
           <div>
             <CLS.UserName>{e.roomname}</CLS.UserName>

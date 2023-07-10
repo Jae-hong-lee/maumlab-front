@@ -1,1 +1,3 @@
-export interface IUserInfo {}
+export interface IUserInfo {
+  LoginUserList: any[];
+}

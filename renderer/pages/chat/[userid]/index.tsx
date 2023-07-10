@@ -7,6 +7,11 @@ import FavoriteContainer from "../../../src/component/ChattingPage/Favorited/fav
 import ChatListContainer from "../../../src/component/ChattingPage/ChatList/chatlist.container";
 import useAuth from "../../../src/common/utils/useAuth";
 import { useEffect, useState } from "react";
+import MessagesContainer from "../../../src/component/ChattingPage/Messages/messages.container";
+import MSInputContainer from "../../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
+import UserInfoContainer from "../../../src/component/ChattingPage/UserInfo/userinfo.container";
+import { useRecoilState } from "recoil";
+import { LoginInfo } from "../../../src/common/recoil/userInfo";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -31,16 +36,16 @@ const SidebarWrapper = styled.div`
 `;
 
 const ChattingWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
   flex: 2;
-  background-color: #c4f4da;
-  color: #c5c5c9;
 `;
 
-const Title = styled.a`
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #dffcec;
   font-size: 48px;
   font-weight: 700;
 `;
@@ -49,17 +54,22 @@ function ChatPage() {
   const { fetchUserList } = CreateRoom();
   const router = useRouter();
 
-  // let LoginUserList = fetchUserList(`${router.asPath.split("/")[2]}`);
-  // console.log(LoginUserList);
   const [List, setList] = useState([]);
+
+  // test
+  const [userInfo] = useRecoilState(LoginInfo);
+
   useEffect(() => {
     const fetchData = async () => {
+      if (router.asPath.split("/")[2] === "[userid]") {
+        return;
+      }
       const FetchList = await fetchUserList(`${router.asPath.split("/")[2]}`);
       const json = [...FetchList];
       setList(json);
     };
 
-    fetchData();
+    userInfo && fetchData();
   }, []);
 
   return (
@@ -72,14 +82,19 @@ function ChatPage() {
         </SidebarWrapper>
 
         <ChattingWrapper>
-          <Title>Let's Get Started 🎉</Title>
+          {router.asPath.split("/")[2].split("#")[1] ? (
+            <>
+              <UserInfoContainer LoginUserList={List} />
+              <MessagesContainer />
+              <MSInputContainer />
+            </>
+          ) : (
+            <Title>Let's Get Started 🎉</Title>
+          )}
         </ChattingWrapper>
       </ChatContainer>
     </Wrapper>
   );
 }
 
-// useAuth 추가.
 export default useAuth(ChatPage);
-
-// export default ChatPage;
