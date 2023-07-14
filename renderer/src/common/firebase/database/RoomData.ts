@@ -5,6 +5,7 @@ import {
   addDoc,
   arrayUnion,
   collection,
+  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -141,5 +142,32 @@ export default function CreateRoom() {
     return res;
   };
 
-  return { createPersonalChatRoom, createOpenChatRoom, fetchUserList };
+  const favoritedRoom = async (isFavorited: boolean, user: string) => {
+    console.log(isFavorited, user);
+    const RoomID = user.split("#")[1];
+    const UserID = user.split("#")[0];
+
+    if (isFavorited) {
+      // 필드 update
+      await updateDoc(doc(db, "Users", UserID), {
+        Favorited: {
+          id: RoomID,
+          name: "이름",
+          description: "방설명",
+        },
+      });
+    } else {
+      // delete 필드
+      await updateDoc(doc(db, "Users", UserID), {
+        Favorited: deleteField(),
+      });
+    }
+  };
+
+  return {
+    createPersonalChatRoom,
+    createOpenChatRoom,
+    fetchUserList,
+    favoritedRoom,
+  };
 }

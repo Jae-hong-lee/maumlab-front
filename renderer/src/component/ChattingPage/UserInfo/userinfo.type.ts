@@ -1,3 +1,7 @@
+import { ChangeEvent } from "react";
+
 export interface IUserInfo {
-  LoginUserList: any[];
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  res: any;
+  LoginUserList: any;
 }
