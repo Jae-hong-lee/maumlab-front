@@ -53,11 +53,7 @@ const Title = styled.div`
 function ChatPage() {
   const { fetchUserList } = CreateRoom();
   const router = useRouter();
-
   const [List, setList] = useState([]);
-
-  // test
-  const [userInfo] = useRecoilState(LoginInfo);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,7 +65,7 @@ function ChatPage() {
       setList(json);
     };
 
-    userInfo && fetchData();
+    fetchData();
   }, []);
 
   return (

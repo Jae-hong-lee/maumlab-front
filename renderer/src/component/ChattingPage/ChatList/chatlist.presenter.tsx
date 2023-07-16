@@ -115,19 +115,6 @@ export default function ChatListUI(props: IChatlist) {
           </div>
         </CLS.UserChatInfo>
       ))}
-
-      <CLS.UserChatInfo>
-        <AvatarGroup max={4}>
-          <Avatar alt="Remy Sharp" />
-          <Avatar alt="Travis Howard" />
-          <Avatar alt="Cindy Baker" />
-          {/* <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" /> */}
-        </AvatarGroup>
-        <div>
-          <CLS.UserName>채팅방이름</CLS.UserName>
-          <CLS.LatestMessage>최근메세지!!!</CLS.LatestMessage>
-        </div>
-      </CLS.UserChatInfo>
     </CLS.Wrapper>
   );
 }
