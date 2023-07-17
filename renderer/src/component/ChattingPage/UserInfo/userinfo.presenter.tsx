@@ -13,7 +13,7 @@ export default function UserInfoUI(props: IUserInfo) {
       <Checkbox
         {...label}
         checked={props.checked}
-        onChange={props.handleChange}
+        onClick={props.onClickFavorited}
         icon={<FavoriteBorder />}
         checkedIcon={<Favorite />}
       />

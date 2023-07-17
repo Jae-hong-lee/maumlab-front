@@ -73,7 +73,7 @@ function ChatPage() {
       <ChatContainer>
         <SidebarWrapper>
           <NavbarContainer />
-          <FavoriteContainer />
+          <FavoriteContainer LoginUserList={List} />
           <ChatListContainer LoginUserList={List} />
         </SidebarWrapper>
 

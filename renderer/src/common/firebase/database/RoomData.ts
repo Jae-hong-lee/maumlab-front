@@ -142,18 +142,16 @@ export default function CreateRoom() {
     return res;
   };
 
-  const favoritedRoom = async (isFavorited: boolean, user: string) => {
-    console.log(isFavorited, user);
+  const favoritedRoom = async (checked: boolean, user: string) => {
     const RoomID = user.split("#")[1];
     const UserID = user.split("#")[0];
 
-    if (isFavorited) {
+    if (checked) {
       // 필드 update
       await updateDoc(doc(db, "Users", UserID), {
         Favorited: {
           id: RoomID,
-          name: "이름",
-          description: "방설명",
+          description: "즐겨찾기",
         },
       });
     } else {
@@ -164,10 +162,34 @@ export default function CreateRoom() {
     }
   };
 
+  const fetchUserInfo = async (LoginUid: string, RoomUid: string) => {
+    const docRef = doc(db, "Users", LoginUid);
+    const currentUserRoomsDoc = (await getDoc(docRef)).data();
+    // Favorited List
+    if (RoomUid === undefined) {
+      return currentUserRoomsDoc.Favorited;
+    }
+
+    if (currentUserRoomsDoc.Favorited) {
+      // console.log("즐찾있음");
+      if (currentUserRoomsDoc.Favorited.id === RoomUid) {
+        // console.log("방 uid 같음");
+        return true;
+      } else {
+        // console.log("방 Uid 틀림");
+        return false;
+      }
+    } else {
+      // console.log("즐찾없음");
+      return false;
+    }
+  };
+
   return {
     createPersonalChatRoom,
     createOpenChatRoom,
     fetchUserList,
     favoritedRoom,
+    fetchUserInfo,
   };
 }
