@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import FavoritePresenter from "./favorite.presenter";
 import CreateRoom from "../../../common/firebase/database/RoomData";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { LoginInfo } from "../../../common/recoil/userInfo";
 
 export default function FavoriteContainer(props: any) {
   const { fetchUserInfo } = CreateRoom();
   const router = useRouter();
   const [favoritedList, setFavoritedList] = useState<undefined | any>();
+  const [UserInfo] = useRecoilState(LoginInfo);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,8 +22,8 @@ export default function FavoriteContainer(props: any) {
     fetchData();
   }, [router]);
 
-  const onClickFavorited = () => {
-    console.log("onClickRoom");
+  const onClickFavorited = (uid: string) => {
+    router.push(`/chat/${UserInfo.uid + "#" + uid}`);
   };
 
   const res = props.LoginUserList.filter(

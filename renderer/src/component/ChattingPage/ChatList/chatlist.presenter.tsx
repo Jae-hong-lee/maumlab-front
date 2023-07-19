@@ -23,7 +23,9 @@ export default function ChatListUI(props: IChatlist) {
   return (
     <CLS.Wrapper>
       <CLS.HadderBox>
-        <CLS.HadderText>Chat Room (3)</CLS.HadderText>
+        <CLS.HadderText>
+          Chat Room ({props.LoginUserList.length})
+        </CLS.HadderText>
         {/* 채팅추가 */}
         <IconButton aria-label="add" color="primary" onClick={props.handleOpen}>
           <AddIcon />
@@ -68,7 +70,6 @@ export default function ChatListUI(props: IChatlist) {
             >
               {props.userList?.map((el: any) => {
                 const labelId = `${el.uid}`;
-
                 return (
                   <ListItem key={`chatList+${el.uid}`} disablePadding>
                     <ListItemButton
@@ -104,7 +105,7 @@ export default function ChatListUI(props: IChatlist) {
       {props.LoginUserList.map((e: any, idx: number) => (
         <CLS.UserChatInfo
           onClick={() => {
-            props.onClickSelectRoom(e);
+            props.onClickSelectRoom(e.uid);
           }}
           key={`userInfo+${e.uid}`}
         >

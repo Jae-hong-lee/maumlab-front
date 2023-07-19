@@ -5,15 +5,22 @@ import { Avatar } from "@mui/material";
 export default function FavoritePresenter(props: any) {
   return (
     <FS.Wrapper>
-      <FS.HadderText>⭐️ Favorited Room (3)</FS.HadderText>
-      <div>
-        {props.res?.map((el: any, idx: Number) => (
-          <FS.RoomBox key={el.uid + idx} onClick={props.onClickFavorited}>
-            <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
-            <div>{el.roomname}</div>
-          </FS.RoomBox>
-        ))}
-      </div>
+      <FS.HadderText>⭐️ Favorited Room ()</FS.HadderText>
+
+      {props.res?.map((e: any, idx: number) => (
+        <FS.UserChatInfo
+          onClick={() => {
+            props.onClickFavorited(e.uid);
+          }}
+          key={`userInfo+${e.uid}`}
+        >
+          <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
+          <div>
+            <FS.UserName>{e.roomname}</FS.UserName>
+            <FS.LatestMessage>{e.type}</FS.LatestMessage>
+          </div>
+        </FS.UserChatInfo>
+      ))}
     </FS.Wrapper>
   );
 }

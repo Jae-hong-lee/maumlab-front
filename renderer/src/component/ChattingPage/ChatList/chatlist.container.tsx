@@ -109,8 +109,8 @@ export default function ChatListContainer(props: IListContainer) {
   };
 
   // *Router
-  const onClickSelectRoom = (e: any) => {
-    router.push(`/chat/${UserInfo.uid + "#" + e.uid}`);
+  const onClickSelectRoom = (uid: string) => {
+    router.push(`/chat/${UserInfo.uid + "#" + uid}`);
   };
 
   return (
