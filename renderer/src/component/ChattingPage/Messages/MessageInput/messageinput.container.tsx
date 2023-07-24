@@ -17,8 +17,9 @@ export default function MSInputContainer() {
     if (text === "") {
       return;
     }
+
     try {
-      await MessageUpdate(text, router.asPath.split("/")[2].split("#")[1]);
+      await MessageUpdate(text, router.asPath.split("/")[2]);
       setText("");
     } catch (error) {
       console.log(error);

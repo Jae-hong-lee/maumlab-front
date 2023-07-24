@@ -145,7 +145,6 @@ export default function CreateRoom() {
   };
 
   const favoritedRoom = async (checked: boolean, user: string, res: any) => {
-    const RoomID = user.split("#")[1];
     const UserID = user.split("#")[0];
 
     if (checked) {
