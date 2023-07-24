@@ -1,24 +1,28 @@
 import {
   Timestamp,
+  addDoc,
   arrayUnion,
   collection,
   doc,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function MessageData() {
-  const MessageUpdate = async (text: string, chatId: any) => {
+  const MessageUpdate = async (text: string, chatRoomID: string) => {
     // 1:1, 1:N 나누기
     // if (condition) {
     // } else {
     // }
-    await updateDoc(doc(db, "PersonalChatRooms", chatId), {
-      messages: arrayUnion({
-        id: "1",
+    console.log(chatRoomID);
+    await updateDoc(doc(db, "PersonalChatRooms", chatRoomID), {
+      message: arrayUnion({
+        // id: 1,
         text,
-        senderId: "보내는 사람",
+        // senderId: sessionStorage.uid,
         date: Timestamp.now(),
+        // profileImg: sessionStorage.profileImg,
       }),
     });
   };

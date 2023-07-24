@@ -3,8 +3,10 @@ import {
   DocumentReference,
   QueryDocumentSnapshot,
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   deleteField,
   doc,
   getDoc,
@@ -142,23 +144,35 @@ export default function CreateRoom() {
     return res;
   };
 
-  const favoritedRoom = async (checked: boolean, user: string) => {
+  const favoritedRoom = async (checked: boolean, user: string, res: any) => {
     const RoomID = user.split("#")[1];
     const UserID = user.split("#")[0];
 
     if (checked) {
       // 필드 update
       await updateDoc(doc(db, "Users", UserID), {
-        Favorited: {
-          id: RoomID,
+        Favorited: arrayUnion({
+          // id: RoomID,
+          id: res[0].uid,
           description: "즐겨찾기",
-        },
+          data: [res[0].roomname, res[0].type],
+        }),
       });
     } else {
+      console.log("delete 즐겨찾기");
+      console.log(res[0].uid);
       // delete 필드
-      await updateDoc(doc(db, "Users", UserID), {
-        Favorited: deleteField(),
-      });
+      try {
+        await updateDoc(doc(db, "Users", UserID), {
+          Favorited: arrayRemove({
+            id: res[0].uid,
+            description: "즐겨찾기",
+            data: [res[0].roomname, res[0].type],
+          }),
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -166,13 +180,17 @@ export default function CreateRoom() {
     const docRef = doc(db, "Users", LoginUid);
     const currentUserRoomsDoc = (await getDoc(docRef)).data();
     // Favorited List
+    const res = currentUserRoomsDoc?.Favorited?.filter(
+      (el) => el.id === RoomUid
+    );
+
     if (RoomUid === undefined) {
       return currentUserRoomsDoc.Favorited;
     }
 
     if (currentUserRoomsDoc.Favorited) {
       // console.log("즐찾있음");
-      if (currentUserRoomsDoc.Favorited.id === RoomUid) {
+      if (res[0]?.id === RoomUid) {
         // console.log("방 uid 같음");
         return true;
       } else {

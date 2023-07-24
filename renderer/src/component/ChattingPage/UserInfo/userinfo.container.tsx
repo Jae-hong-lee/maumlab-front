@@ -24,7 +24,7 @@ export default function UserInfoContainer(props: any) {
   }, [res]);
 
   const onClickFavorited = async (event) => {
-    await favoritedRoom(event.target.checked, router.asPath.split("/")[2]);
+    await favoritedRoom(event.target.checked, router.asPath.split("/")[2], res);
     setChecked((prev: any) => !prev);
   };
 

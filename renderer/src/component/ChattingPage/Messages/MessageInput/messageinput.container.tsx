@@ -1,22 +1,28 @@
 import { ChangeEvent, useState } from "react";
 import MSInputUI from "./messageinput.presenter";
 import MessageData from "../../../../common/firebase/database/MessageData";
-// Recoil
-import { LoginInfo } from "../../../../common/recoil/userInfo";
-import { useRecoilState } from "recoil";
+import { useRouter } from "next/router";
 
 export default function MSInputContainer() {
   const [text, setText] = useState("");
-  const [UserInfo] = useRecoilState(LoginInfo);
+
   const { MessageUpdate } = MessageData();
+  const router = useRouter();
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
-  const SubmitMessage = async () => {
-    console.log(text);
-    await MessageUpdate(text, UserInfo.uid);
+  const SubmitMessage = async (e: any) => {
+    if (text === "") {
+      return;
+    }
+    try {
+      await MessageUpdate(text, router.asPath.split("/")[2].split("#")[1]);
+      setText("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

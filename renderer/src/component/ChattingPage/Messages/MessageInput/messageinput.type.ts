@@ -6,5 +6,5 @@ export interface IInput {
   // chatUser: any;
   onChangeText: (e: ChangeEvent<HTMLInputElement>) => void;
   // onChangeIMG: (e: ChangeEvent<HTMLInputElement>) => void;
-  SubmitMessage: () => void;
+  SubmitMessage: (e: any) => void;
 }
