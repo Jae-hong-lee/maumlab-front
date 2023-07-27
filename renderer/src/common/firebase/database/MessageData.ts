@@ -57,5 +57,8 @@ export default function MessageData() {
     console.log("Update Message");
   };
 
-  return { MessageUpdate };
+  // 메세지 리스트 받아오기
+  const MessageListFatch = () => {};
+
+  return { MessageUpdate, MessageListFatch };
 }
