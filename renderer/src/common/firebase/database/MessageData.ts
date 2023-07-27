@@ -5,16 +5,19 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function MessageData() {
+  // 메세지 보내기
   const MessageUpdate = async (text: string, router: string) => {
     const ChatRoomID = router.split("#")[1];
     const UserUID = router.split("#")[0];
-    console.log("라우터", ChatRoomID);
 
     const docRef = doc(db, "Users", UserUID);
     const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
@@ -58,7 +61,19 @@ export default function MessageData() {
   };
 
   // 메세지 리스트 받아오기
-  const MessageListFatch = () => {};
+
+  const MessageListFatch = async (roomID: string, roomType: string) => {
+    console.log(roomID, "MessageData");
+    // const q = query(collection(db, "Users"), where("uid", "!=", "cc"));
+    // const res = await getDocs(q);
+    // const MessageList = res.docs.map((doc) => ({
+    //   ...doc.data(),
+    // }));
+    // return MessageList;
+  };
 
   return { MessageUpdate, MessageListFatch };
 }
+
+// 메세지를 보낼때와 메세지 리스트를 받아올때 어떤 타입에 채팅방인지 알아야한다.
+// 그걸 판단하는 함수를 만들어야할듯.
