@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MessagesUI from "./messages.presenter";
 import { useRouter } from "next/router";
 import MessageData from "../../../common/firebase/database/MessageData";
@@ -6,7 +6,7 @@ import MessageData from "../../../common/firebase/database/MessageData";
 export default function MessagesContainer() {
   const router = useRouter();
   const { MessageListFatch } = MessageData();
-  console.log(router.asPath, "MessageCotainer");
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const fetchMessageData = async () => {
@@ -14,9 +14,10 @@ export default function MessagesContainer() {
         `${router.asPath.split("/")[2].split("#")[1]}`,
         "1:1"
       );
+      setMessages(FetchMessageList);
     };
     fetchMessageData();
   }, [router.asPath]);
 
-  return <MessagesUI />;
+  return <MessagesUI messages={messages} />;
 }

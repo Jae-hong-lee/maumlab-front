@@ -1,1 +1,3 @@
-export interface IMessages {}
+export interface IMessages {
+  messages: any;
+}

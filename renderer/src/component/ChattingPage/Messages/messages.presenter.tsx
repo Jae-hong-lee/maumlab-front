@@ -5,12 +5,11 @@ import Message from "./message/message.presenter";
 export default function MessagesUI(props: IMessages) {
   return (
     <MS.Wrapper>
-      {/* map */}
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
+      {props.messages?.map((el: any) => (
+        <Message id={el.id} text={el.text} />
+      ))}
+
+      {/* <Message /> */}
     </MS.Wrapper>
   );
 }

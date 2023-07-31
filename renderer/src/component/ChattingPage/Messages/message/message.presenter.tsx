@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import * as MS from "./message.style";
 
-export default function MessageUI(props) {
+export default function MessageUI(props: any) {
   return (
     <MS.Wrapper>
       <MS.MessageInfo>
@@ -12,8 +12,8 @@ export default function MessageUI(props) {
       </MS.MessageInfo>
 
       <MS.ContextWrapper>
-        <MS.MessageText>메세지내용</MS.MessageText>
-        <MS.ChatIMG src="/images/logo.png" alt="" />
+        <MS.MessageText>{props.text}</MS.MessageText>
+        {/* <MS.ChatIMG src="/images/logo.png" alt="" /> */}
       </MS.ContextWrapper>
     </MS.Wrapper>
   );

@@ -63,13 +63,18 @@ export default function MessageData() {
   // 메세지 리스트 받아오기
 
   const MessageListFatch = async (roomID: string, roomType: string) => {
-    console.log(roomID, "MessageData");
+    // console.log(roomID, "MessageData");
+    const docRef = doc(db, "PersonalChatRooms", roomID);
+
+    const res = (await getDoc(docRef)).data().message;
+    console.log(res);
     // const q = query(collection(db, "Users"), where("uid", "!=", "cc"));
     // const res = await getDocs(q);
     // const MessageList = res.docs.map((doc) => ({
     //   ...doc.data(),
     // }));
     // return MessageList;
+    return res;
   };
 
   return { MessageUpdate, MessageListFatch };
