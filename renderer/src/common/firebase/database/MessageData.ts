@@ -15,7 +15,7 @@ import { db } from "../firebase";
 
 export default function MessageData() {
   // 메세지 보내기
-  const MessageUpdate = async (text: string, router: string) => {
+  const MessageSend = async (text: string, router: string) => {
     const ChatRoomID = router.split("#")[1];
     const UserUID = router.split("#")[0];
 
@@ -29,15 +29,17 @@ export default function MessageData() {
     const RoomDoc = RoomDocs.filter((el) => el.id == ChatRoomID);
     const res = RoomDoc[0].ref.path.split("/")[0];
 
+    const TypeRoomId = await FindTypeChatRoom(ChatRoomID);
+    console.log(TypeRoomId, "UpdateMessage");
+
     if (res === "PersonalChatRooms") {
       try {
         await updateDoc(doc(db, "PersonalChatRooms", ChatRoomID), {
           message: arrayUnion({
             text,
             date: Timestamp.now(),
-            id: 1,
-            // senderId: sessionStorage.uid,
-            // profileImg: sessionStorage.profileImg,
+            senderID: UserUID,
+            profileImg: "",
           }),
         });
       } catch (error) {
@@ -77,7 +79,35 @@ export default function MessageData() {
     return res;
   };
 
-  return { MessageUpdate, MessageListFatch };
+  const FindTypeChatRoom = async (roomID: string) => {
+    // const querySnapshot = await getDocs(collection(db, "PersonalChatRooms"));
+    // const querySnapshot2 = await getDocs(collection(db, "OpenChatRooms"));
+
+    // querySnapshot.forEach((doc) => {
+    //   // 가져온 모든 문서들을 확인
+    //   console.log(doc.id, " => ", doc.data());
+    // });
+    // querySnapshot2.forEach((doc) => {
+    //   // 가져온 모든 문서들을 확인
+    //   console.log(doc.id, " => ", doc.data());
+    // });
+
+    // 카테고리가 기타(etc)인 모든 posts 데이터를 가져오는 쿼리
+    const q = query(
+      collection(db, "PersonalChatRooms"),
+      where(roomID, "==", roomID)
+    );
+
+    // getDocs 함수에 위에 정의한 쿼리를 적용해서 모든 문서들을 가져온다.
+    const querySnapshot3 = await getDocs(q);
+    console.log(querySnapshot3);
+    querySnapshot3.forEach((doc) => {
+      // 가져온 모든 문서들을 확인
+      console.log(doc.id, " => ", doc.data());
+    });
+  };
+
+  return { MessageSend, MessageListFatch };
 }
 
 // 메세지를 보낼때와 메세지 리스트를 받아올때 어떤 타입에 채팅방인지 알아야한다.

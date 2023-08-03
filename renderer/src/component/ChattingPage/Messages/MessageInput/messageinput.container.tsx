@@ -6,20 +6,21 @@ import { useRouter } from "next/router";
 export default function MSInputContainer() {
   const [text, setText] = useState("");
 
-  const { MessageUpdate } = MessageData();
+  const { MessageSend } = MessageData();
   const router = useRouter();
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
-  const SubmitMessage = async (e: any) => {
+  const SubmitMessage = async () => {
+    console.log(router.asPath);
     if (text === "") {
       return;
     }
 
     try {
-      await MessageUpdate(text, router.asPath.split("/")[2]);
+      await MessageSend(text, router.asPath.split("/")[2]);
       setText("");
     } catch (error) {
       console.log(error);

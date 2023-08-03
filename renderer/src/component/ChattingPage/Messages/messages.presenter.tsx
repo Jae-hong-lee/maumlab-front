@@ -6,7 +6,7 @@ export default function MessagesUI(props: IMessages) {
   return (
     <MS.Wrapper>
       {props.messages?.map((el: any) => (
-        <Message id={el.id} text={el.text} />
+        <Message key={`message+${el.id}`} id={el.id} text={el.text} />
       ))}
 
       {/* <Message /> */}
