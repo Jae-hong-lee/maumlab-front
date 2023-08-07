@@ -63,15 +63,15 @@ export default function MessageData() {
   };
 
   // 메세지 리스트 받아오기
+  const MessageListFatch = async (roomID: string) => {
+    // RoomType 체크하기
+    const RoomType = await FindTypeChatRoom(roomID);
+    console.log(RoomType);
 
-  const MessageListFatch = async (roomID: string, roomType: string) => {
-    console.log(roomType, "MessageData");
     const docRef = doc(db, "PersonalChatRooms", roomID);
 
-    FindTypeChatRoom(roomID);
-
     const res = (await getDoc(docRef)).data().message;
-    // console.log(res);
+    console.log(res);
 
     // const q = query(collection(db, "Users"), where("uid", "!=", "cc"));
     // const res = await getDocs(q);
@@ -82,36 +82,21 @@ export default function MessageData() {
     return res;
   };
 
+  // router 주소를 통해 채팅방타입 확인하기
+  // exists() 함수를 이용해서 컬렉션안에 roomID가 있는지 Boolean 값으로 확인
   const FindTypeChatRoom = async (roomID: string) => {
-    // const querySnapshot = await getDocs(collection(db, "PersonalChatRooms"));
-    // const querySnapshot2 = await getDocs(collection(db, "OpenChatRooms"));
-
-    // querySnapshot.forEach((doc) => {
-    //   // 가져온 모든 문서들을 확인
-    //   console.log(doc.id, " => ", doc.data());
-    // });
-    // querySnapshot2.forEach((doc) => {
-    //   // 가져온 모든 문서들을 확인
-    //   console.log(doc.id, " => ", doc.data());
-    // });
     const PersonalRef = doc(db, "PersonalChatRooms", roomID);
     const OpenChatRef = doc(db, "OpenChatRooms", roomID);
 
     const PersonalSnap = await getDoc(PersonalRef);
     const OpenChatSnap = await getDoc(OpenChatRef);
 
-    console.log(PersonalSnap.exists());
-    console.log(OpenChatSnap.exists());
-
-    // const docRef = doc(db, "PersonalChatRooms", roomID);
-    // const docSnap = await getDoc(docRef);
-
-    // if (docSnap.exists()) {
-    //   console.log("Document data:", docSnap.data());
-    // } else {
-    //   // docSnap.data() will be undefined in this case
-    //   console.log("No such document!");
-    // }
+    if (PersonalSnap.exists() === true) {
+      return "PersonalChatRooms";
+    }
+    if (OpenChatSnap.exists() === true) {
+      return "OpenChatRooms";
+    }
   };
 
   return { MessageSend, MessageListFatch };

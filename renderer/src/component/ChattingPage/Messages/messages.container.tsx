@@ -11,8 +11,7 @@ export default function MessagesContainer() {
   useEffect(() => {
     const fetchMessageData = async () => {
       const FetchMessageList = await MessageListFatch(
-        `${router.asPath.split("/")[2].split("#")[1]}`,
-        "1:1"
+        `${router.asPath.split("/")[2].split("#")[1]}`
       );
       setMessages(FetchMessageList);
     };
