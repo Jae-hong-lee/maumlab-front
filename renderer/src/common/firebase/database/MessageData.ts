@@ -68,8 +68,11 @@ export default function MessageData() {
     console.log(roomType, "MessageData");
     const docRef = doc(db, "PersonalChatRooms", roomID);
 
+    FindTypeChatRoom(roomID);
+
     const res = (await getDoc(docRef)).data().message;
-    console.log(res);
+    // console.log(res);
+
     // const q = query(collection(db, "Users"), where("uid", "!=", "cc"));
     // const res = await getDocs(q);
     // const MessageList = res.docs.map((doc) => ({
@@ -91,20 +94,24 @@ export default function MessageData() {
     //   // 가져온 모든 문서들을 확인
     //   console.log(doc.id, " => ", doc.data());
     // });
+    const PersonalRef = doc(db, "PersonalChatRooms", roomID);
+    const OpenChatRef = doc(db, "OpenChatRooms", roomID);
 
-    // 카테고리가 기타(etc)인 모든 posts 데이터를 가져오는 쿼리
-    const q = query(
-      collection(db, "PersonalChatRooms"),
-      where(roomID, "==", roomID)
-    );
+    const PersonalSnap = await getDoc(PersonalRef);
+    const OpenChatSnap = await getDoc(OpenChatRef);
 
-    // getDocs 함수에 위에 정의한 쿼리를 적용해서 모든 문서들을 가져온다.
-    const querySnapshot3 = await getDocs(q);
-    console.log(querySnapshot3);
-    querySnapshot3.forEach((doc) => {
-      // 가져온 모든 문서들을 확인
-      console.log(doc.id, " => ", doc.data());
-    });
+    console.log(PersonalSnap.exists());
+    console.log(OpenChatSnap.exists());
+
+    // const docRef = doc(db, "PersonalChatRooms", roomID);
+    // const docSnap = await getDoc(docRef);
+
+    // if (docSnap.exists()) {
+    //   console.log("Document data:", docSnap.data());
+    // } else {
+    //   // docSnap.data() will be undefined in this case
+    //   console.log("No such document!");
+    // }
   };
 
   return { MessageSend, MessageListFatch };

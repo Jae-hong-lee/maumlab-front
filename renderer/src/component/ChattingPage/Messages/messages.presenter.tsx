@@ -5,8 +5,8 @@ import Message from "./message/message.presenter";
 export default function MessagesUI(props: IMessages) {
   return (
     <MS.Wrapper>
-      {props.messages?.map((el: any) => (
-        <Message key={`message+${el.id}`} id={el.id} text={el.text} />
+      {props.messages?.map((el: any, idx: number) => (
+        <Message key={`message${el.id}${idx}`} id={el.id} text={el.text} />
       ))}
 
       {/* <Message /> */}
