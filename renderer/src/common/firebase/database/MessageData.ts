@@ -68,10 +68,25 @@ export default function MessageData() {
     const RoomType = await FindTypeChatRoom(roomID);
     console.log(RoomType);
 
-    const docRef = doc(db, "PersonalChatRooms", roomID);
+    // ⭐️ RoomType에 따라 메세지 받아오기. Update 하기 ⭐️
+    if (RoomType === "PersonalChatRooms") {
+      // PersonalChat
+      const docRef = doc(db, "PersonalChatRooms", roomID);
+      const res = (await getDoc(docRef)).data().message;
 
-    const res = (await getDoc(docRef)).data().message;
-    console.log(res);
+      return res;
+    }
+    if (RoomType === "OpenChatRooms") {
+      // OpenChat
+      const docRef = doc(db, "OpenChatRooms", roomID);
+      const res = (await getDoc(docRef)).data().message;
+
+      return res;
+    }
+
+    // const docRef = doc(db, "PersonalChatRooms", roomID);
+    // const res = (await getDoc(docRef)).data().message;
+    // console.log(res);
 
     // const q = query(collection(db, "Users"), where("uid", "!=", "cc"));
     // const res = await getDocs(q);
@@ -79,7 +94,7 @@ export default function MessageData() {
     //   ...doc.data(),
     // }));
     // return MessageList;
-    return res;
+    // return res;
   };
 
   // router 주소를 통해 채팅방타입 확인하기
@@ -101,6 +116,3 @@ export default function MessageData() {
 
   return { MessageSend, MessageListFatch };
 }
-
-// 메세지를 보낼때와 메세지 리스트를 받아올때 어떤 타입에 채팅방인지 알아야한다.
-// 그걸 판단하는 함수를 만들어야할듯.
