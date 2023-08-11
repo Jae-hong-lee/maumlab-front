@@ -8,8 +8,6 @@ export default function MessagesUI(props: IMessages) {
       {props.messages?.map((el: any, idx: number) => (
         <Message key={`message${el.id}${idx}`} id={el.id} text={el.text} />
       ))}
-
-      {/* <Message /> */}
     </MS.Wrapper>
   );
 }

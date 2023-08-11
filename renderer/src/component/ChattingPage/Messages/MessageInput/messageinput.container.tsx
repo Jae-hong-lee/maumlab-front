@@ -13,7 +13,7 @@ export default function MSInputContainer() {
     setText(e.target.value);
   };
 
-  const SubmitMessage = async () => {
+  const SendMessage = async () => {
     console.log(router.asPath);
     if (text === "") {
       return;
@@ -31,7 +31,7 @@ export default function MSInputContainer() {
     <MSInputUI
       text={text}
       onChangeText={onChangeText}
-      SubmitMessage={SubmitMessage}
+      SendMessage={SendMessage}
     />
   );
 }

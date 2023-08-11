@@ -7,7 +7,7 @@ import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <RecoilRoot>
       <Head>
         <title>Nextron</title>
         <meta
@@ -20,10 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <RecoilRoot>
-        <Component {...pageProps} />
-      </RecoilRoot>
-    </>
+      <Component {...pageProps} />
+    </RecoilRoot>
   );
 }
 

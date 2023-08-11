@@ -1,20 +1,14 @@
 import {
   Timestamp,
-  addDoc,
   arrayUnion,
-  collection,
   doc,
   getDoc,
-  getDocs,
-  query,
-  setDoc,
   updateDoc,
-  where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function MessageData() {
-  // 메세지 보내기
+  // ⭐️ 메세지 보내기
   const MessageSend = async (text: string, router: string) => {
     const ChatRoomID = router.split("#")[1];
     const UserUID = router.split("#")[0];
@@ -30,7 +24,7 @@ export default function MessageData() {
     const res = RoomDoc[0].ref.path.split("/")[0];
 
     const TypeRoomId = await FindTypeChatRoom(ChatRoomID);
-    console.log(TypeRoomId, "UpdateMessage");
+    console.log(TypeRoomId, "룸타입 구별 메세지 보내기");
 
     if (res === "PersonalChatRooms") {
       try {
@@ -51,7 +45,8 @@ export default function MessageData() {
           message: arrayUnion({
             text,
             date: Timestamp.now(),
-            id: 1,
+            senderID: UserUID,
+            profileImg: "",
           }),
         });
       } catch (error) {
@@ -62,13 +57,12 @@ export default function MessageData() {
     console.log("Update Message");
   };
 
-  // 메세지 리스트 받아오기
+  // ⭐️ 메세지 리스트 받아오기
   const MessageListFatch = async (roomID: string) => {
     // RoomType 체크하기
     const RoomType = await FindTypeChatRoom(roomID);
-    console.log(RoomType);
 
-    // ⭐️ RoomType에 따라 메세지 받아오기. Update 하기 ⭐️
+    // ⭐️ RoomType에 따라 메세지 받아오기 ⭐️
     if (RoomType === "PersonalChatRooms") {
       // PersonalChat
       const docRef = doc(db, "PersonalChatRooms", roomID);
@@ -83,21 +77,9 @@ export default function MessageData() {
 
       return res;
     }
-
-    // const docRef = doc(db, "PersonalChatRooms", roomID);
-    // const res = (await getDoc(docRef)).data().message;
-    // console.log(res);
-
-    // const q = query(collection(db, "Users"), where("uid", "!=", "cc"));
-    // const res = await getDocs(q);
-    // const MessageList = res.docs.map((doc) => ({
-    //   ...doc.data(),
-    // }));
-    // return MessageList;
-    // return res;
   };
 
-  // router 주소를 통해 채팅방타입 확인하기
+  // ⭐️ 채팅방 Type구별
   // exists() 함수를 이용해서 컬렉션안에 roomID가 있는지 Boolean 값으로 확인
   const FindTypeChatRoom = async (roomID: string) => {
     const PersonalRef = doc(db, "PersonalChatRooms", roomID);
