@@ -10,8 +10,6 @@ import { useEffect, useState } from "react";
 import MessagesContainer from "../../../src/component/ChattingPage/Messages/messages.container";
 import MSInputContainer from "../../../src/component/ChattingPage/Messages/MessageInput/messageinput.container";
 import UserInfoContainer from "../../../src/component/ChattingPage/UserInfo/userinfo.container";
-import { useRecoilState } from "recoil";
-import { LoginInfo } from "../../../src/common/recoil/userInfo";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -62,6 +60,7 @@ function ChatPage() {
       }
       const FetchList = await fetchUserList(`${router.asPath.split("/")[2]}`);
       const json = [...FetchList];
+
       setList(json);
     };
 

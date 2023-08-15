@@ -9,7 +9,7 @@ import { db } from "../firebase";
 
 export default function MessageData() {
   // ⭐️ 메세지 보내기
-  const MessageSend = async (text: string, router: string) => {
+  const MessageSend = async (text: string, router: string, loginUser: any) => {
     const ChatRoomID = router.split("#")[1];
     const UserUID = router.split("#")[0];
 
@@ -34,6 +34,7 @@ export default function MessageData() {
             date: Timestamp.now(),
             senderID: UserUID,
             profileImg: "",
+            senderNickName: loginUser.displayName,
           }),
         });
       } catch (error) {
@@ -47,6 +48,7 @@ export default function MessageData() {
             date: Timestamp.now(),
             senderID: UserUID,
             profileImg: "",
+            senderNickName: loginUser.displayName,
           }),
         });
       } catch (error) {

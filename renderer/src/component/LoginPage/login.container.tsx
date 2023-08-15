@@ -16,8 +16,8 @@ export default function LoginContainer() {
   const onClickLogin = handleSubmit(async (userData: any) => {
     try {
       const res = await login(userData.email, userData.password);
+      sessionStorage.setItem("uid", res);
       router.push(`/chat/${res}`);
-      // router.push("/chat");
     } catch (e) {
       if (e instanceof Error) {
         alert(e.message);
