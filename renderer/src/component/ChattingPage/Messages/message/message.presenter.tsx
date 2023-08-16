@@ -2,8 +2,6 @@ import { Avatar } from "@mui/material";
 import * as MS from "./message.style";
 
 export default function MessageUI(props: any) {
-  console.log(sessionStorage.uid);
-  console.log(props.id);
   return (
     <MS.Wrapper id={props.id}>
       <MS.MessageInfo>

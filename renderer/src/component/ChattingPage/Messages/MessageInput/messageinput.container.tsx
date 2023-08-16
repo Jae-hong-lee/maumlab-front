@@ -11,8 +11,6 @@ export default function MSInputContainer() {
   const router = useRouter();
   const [loginUser] = useRecoilState<any>(LoginInfo);
 
-  console.log(loginUser.displayName, "MessageInput");
-
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };

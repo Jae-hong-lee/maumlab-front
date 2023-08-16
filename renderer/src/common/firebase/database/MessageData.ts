@@ -20,6 +20,7 @@ export default function MessageData() {
     const RoomDocs = await Promise.all(
       currentUserRoomsDoc.map((roomRef: any) => getDoc(roomRef))
     );
+
     const RoomDoc = RoomDocs.filter((el) => el.id == ChatRoomID);
     const res = RoomDoc[0].ref.path.split("/")[0];
 
