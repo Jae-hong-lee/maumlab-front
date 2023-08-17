@@ -8,7 +8,10 @@ export default function UserInfoUI(props: IUserInfo) {
 
   return (
     <UIS.Wrapper>
-      <UIS.ChatInfoTitle>{props.res[0]?.roomname}(닉네임)</UIS.ChatInfoTitle>
+      <UIS.ChatInfoTitle>
+        {props.res[0]?.roomname} (
+        {props.res[0]?.users.map((el: any) => ` ${el.nickName} `)})
+      </UIS.ChatInfoTitle>
       {/* Favorite Btn */}
       <Checkbox
         {...label}
