@@ -103,7 +103,8 @@ export default function ChatListContainer(props: IListContainer) {
       }
     }
     console.log("채팅방 생성성공");
-    // router.push(`/chat/${UserInfo.uid}`);
+    setRoomname("");
+    setCheckedUid([]);
     handleClose();
   };
 
