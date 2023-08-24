@@ -16,7 +16,6 @@ export default function MSInputContainer() {
   };
 
   const SendMessage = async () => {
-    console.log(router.asPath);
     if (text === "") {
       return;
     }

@@ -151,15 +151,14 @@ export default function CreateRoom() {
       // 필드 update
       await updateDoc(doc(db, "Users", UserID), {
         Favorited: arrayUnion({
-          // id: RoomID,
           id: res[0].uid,
           description: "즐겨찾기",
           data: [res[0].roomname, res[0].type],
         }),
       });
     } else {
-      console.log("delete 즐겨찾기");
-      console.log(res[0].uid);
+      // console.log("delete 즐겨찾기");
+      // console.log(res[0].uid);
       // delete 필드
       try {
         await updateDoc(doc(db, "Users", UserID), {

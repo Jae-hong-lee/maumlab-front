@@ -13,21 +13,21 @@ export default function MessageData() {
     const ChatRoomID = router.split("#")[1];
     const UserUID = router.split("#")[0];
 
-    const docRef = doc(db, "Users", UserUID);
-    const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
+    // const docRef = doc(db, "Users", UserUID);
+    // const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
 
-    // 로그인 유저가 가지고 있는 채팅방
-    const RoomDocs = await Promise.all(
-      currentUserRoomsDoc.map((roomRef: any) => getDoc(roomRef))
-    );
+    // // 로그인 유저가 가지고 있는 채팅방
+    // const RoomDocs = await Promise.all(
+    //   currentUserRoomsDoc.map((roomRef: any) => getDoc(roomRef))
+    // );
 
-    const RoomDoc = RoomDocs.filter((el) => el.id == ChatRoomID);
-    const res = RoomDoc[0].ref.path.split("/")[0];
+    // const RoomDoc = RoomDocs.filter((el) => el.id == ChatRoomID);
+    // const res = RoomDoc[0].ref.path.split("/")[0];
 
     const TypeRoomId = await FindTypeChatRoom(ChatRoomID);
-    console.log(TypeRoomId, "룸타입 구별 메세지 보내기");
+    // console.log(TypeRoomId, "룸타입 구별 메세지 보내기");
 
-    if (res === "PersonalChatRooms") {
+    if (TypeRoomId === "PersonalChatRooms") {
       try {
         await updateDoc(doc(db, "PersonalChatRooms", ChatRoomID), {
           message: arrayUnion({
@@ -41,7 +41,7 @@ export default function MessageData() {
       } catch (error) {
         console.log(error);
       }
-    } else if (res === "OpenChatRooms") {
+    } else if (TypeRoomId === "OpenChatRooms") {
       try {
         await updateDoc(doc(db, "OpenChatRooms", ChatRoomID), {
           message: arrayUnion({

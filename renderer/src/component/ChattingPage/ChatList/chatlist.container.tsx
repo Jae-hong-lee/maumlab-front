@@ -103,6 +103,8 @@ export default function ChatListContainer(props: IListContainer) {
       }
     }
     console.log("채팅방 생성성공");
+    // 업데이트
+    // onSnapshot() 써야함.
     setRoomname("");
     setCheckedUid([]);
     handleClose();
