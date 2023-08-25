@@ -13,6 +13,7 @@ export default function MessagesContainer() {
       const FetchMessageList = await MessageListFatch(
         `${router.asPath.split("/")[2].split("#")[1]}`
       );
+      // console.log("messages useEffect");
       setMessages(FetchMessageList);
     };
     fetchMessageData();

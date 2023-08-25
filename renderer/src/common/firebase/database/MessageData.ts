@@ -25,7 +25,7 @@ export default function MessageData() {
     // const res = RoomDoc[0].ref.path.split("/")[0];
 
     const TypeRoomId = await FindTypeChatRoom(ChatRoomID);
-    // console.log(TypeRoomId, "룸타입 구별 메세지 보내기");
+    // console.log(TypeRoomId, "룸타입 구별");
 
     if (TypeRoomId === "PersonalChatRooms") {
       try {
@@ -56,7 +56,7 @@ export default function MessageData() {
         console.log(error);
       }
     }
-    // 1:1, 1:N 나누기
+
     console.log("Update Message");
   };
 

@@ -60,7 +60,7 @@ function ChatPage() {
       }
       const FetchList = await fetchUserList(`${router.asPath.split("/")[2]}`);
       const json = [...FetchList];
-
+      // console.log("index useEffect", List);
       setList(json);
     };
 

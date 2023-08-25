@@ -18,6 +18,7 @@ export default function UserInfoContainer(props: any) {
         router.asPath.split("/")[2].split("#")[0],
         res[0]?.uid
       );
+      // console.log("userinfo useEffect", res);
       setChecked(check);
     };
     fetchData();

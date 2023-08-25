@@ -22,10 +22,10 @@ export default function MSInputContainer() {
 
     try {
       await MessageSend(text, router.asPath.split("/")[2], loginUser);
-      setText("");
     } catch (error) {
       console.log(error);
     }
+    setText("");
   };
 
   return (
