@@ -8,7 +8,7 @@ export default function FavoritePresenter(props: any) {
       <FS.HadderText>
         ⭐️ Favorited Room ({props.favoritedList?.length})
       </FS.HadderText>
-      {props.favoritedList?.map((e, idx) => (
+      {props.favoritedList?.map((e: any) => (
         <FS.UserChatInfo
           onClick={() => {
             props.onClickFavorited(e.id);
@@ -22,20 +22,6 @@ export default function FavoritePresenter(props: any) {
           </div>
         </FS.UserChatInfo>
       ))}
-      {/* {props.res?.map((e: any, idx: number) => (
-        <FS.UserChatInfo
-          onClick={() => {
-            props.onClickFavorited(e.uid);
-          }}
-          key={`userInfo+${e.uid}`}
-        >
-          <Avatar sx={{ bgcolor: "secondary.main", height: 50, width: 50 }} />
-          <div>
-            <FS.UserName>{e.roomname}</FS.UserName>
-            <FS.LatestMessage>{e.type}</FS.LatestMessage>
-          </div>
-        </FS.UserChatInfo>
-      ))} */}
     </FS.Wrapper>
   );
 }

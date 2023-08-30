@@ -19,7 +19,7 @@ import {
 import { db } from "../firebase";
 
 export default function CreateRoom() {
-  // 1:1 채팅방 생성
+  // ⭐️ 1:1 채팅방 생성
   const createPersonalChatRoom = async (
     uid: any,
     pairUid: any,
@@ -43,7 +43,7 @@ export default function CreateRoom() {
     return roomDocRef.id;
   };
 
-  // 1:N 채팅방 생성
+  // ⭐️ 1:N 채팅방 생성
   const createOpenChatRoom = async (
     uids: string[],
     roomname: string,
@@ -64,7 +64,7 @@ export default function CreateRoom() {
     return roomDocRef.id;
   };
 
-  // 1:1 채팅방이 존재하는가??
+  // ⭐️ 1:1 채팅방이 존재하는가??
   const findPersonalChatRoom = async (uid: string, pairUid: string) => {
     const personalChatRoomRef = collection(db, "PersonalChatRooms");
     // firebase in 함수란?
@@ -105,6 +105,7 @@ export default function CreateRoom() {
   };
 
   /**
+   * ⭐️
    * 현재 로그인한 유저가 속해있는 채팅방 가져오기
    * @param currentUserUid 로그인한 유저의 uid
    * @returns 방 리스트
@@ -154,8 +155,6 @@ export default function CreateRoom() {
         }),
       });
     } else {
-      // console.log("delete 즐겨찾기");
-      // console.log(res[0].uid);
       // delete 필드
       try {
         await updateDoc(doc(db, "Users", UserID), {
@@ -176,15 +175,17 @@ export default function CreateRoom() {
     const currentUserRoomsDoc = (await getDoc(docRef)).data();
     // Favorited List
     const res = currentUserRoomsDoc?.Favorited?.filter(
-      (el) => el.id === RoomUid
+      (el: any) => el.id === RoomUid
     );
 
     if (RoomUid === undefined) {
+      console.log("RoomUid undef");
       return currentUserRoomsDoc.Favorited;
     }
 
     if (currentUserRoomsDoc.Favorited) {
       // console.log("즐찾있음");
+
       if (res[0]?.id === RoomUid) {
         // console.log("방 uid 같음");
         return true;

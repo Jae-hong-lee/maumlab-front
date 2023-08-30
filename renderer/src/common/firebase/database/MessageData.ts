@@ -47,36 +47,7 @@ export default function MessageData() {
       }
     }
 
-    console.log("Update Message");
-  };
-
-  // ⭐️ 메세지 리스트 받아오기
-  const MessageListFatch = async (roomID: string) => {
-    // const unsub = onSnapshot(
-    //   doc(db, "userChats", sessionStorage.uid),
-    //   (doc: any) => {
-    //     setChats(doc.data());
-    //   }
-    // );
-
-    // RoomType 체크하기
-    const RoomType = await FindTypeChatRoom(roomID);
-
-    // ⭐️ RoomType에 따라 메세지 받아오기 ⭐️
-    if (RoomType === "PersonalChatRooms") {
-      // PersonalChat
-      const docRef = doc(db, "PersonalChatRooms", roomID);
-      const res = (await getDoc(docRef)).data().message;
-
-      return res;
-    }
-    if (RoomType === "OpenChatRooms") {
-      // OpenChat
-      const docRef = doc(db, "OpenChatRooms", roomID);
-      const res = (await getDoc(docRef)).data().message;
-
-      return res;
-    }
+    // console.log("Update Message");
   };
 
   // ⭐️ 채팅방 Type구별
@@ -96,5 +67,5 @@ export default function MessageData() {
     }
   };
 
-  return { MessageSend, MessageListFatch, FindTypeChatRoom };
+  return { MessageSend, FindTypeChatRoom };
 }

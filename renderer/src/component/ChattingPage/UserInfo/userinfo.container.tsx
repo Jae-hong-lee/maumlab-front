@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import UserInfoUI from "./userinfo.presenter";
 import { useRouter } from "next/router";
 import CreateRoom from "../../../common/firebase/database/RoomData";
@@ -18,7 +18,6 @@ export default function UserInfoContainer(props: any) {
         router.asPath.split("/")[2].split("#")[0],
         res[0]?.uid
       );
-      // console.log("userinfo useEffect", res);
       setChecked(check);
     };
     fetchData();

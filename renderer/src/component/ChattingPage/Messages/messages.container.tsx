@@ -7,11 +7,12 @@ import { db } from "../../../common/firebase/firebase";
 
 export default function MessagesContainer() {
   const router = useRouter();
-  const { MessageListFatch, FindTypeChatRoom } = MessageData();
+  const { FindTypeChatRoom } = MessageData();
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const fetchMessageData = async () => {
+      // RoomType Check
       const RoomType = await FindTypeChatRoom(
         `${router.asPath.split("/")[2].split("#")[1]}`
       );
@@ -36,12 +37,6 @@ export default function MessagesContainer() {
         );
         return;
       }
-
-      // const FetchMessageList = await MessageListFatch(
-      //   `${router.asPath.split("/")[2].split("#")[1]}`
-      // );
-      // setMessages(FetchMessageList);
-      console.log(messages);
     };
     fetchMessageData();
   }, [router.asPath]);
