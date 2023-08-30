@@ -3,6 +3,7 @@ import {
   arrayUnion,
   doc,
   getDoc,
+  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
@@ -12,17 +13,6 @@ export default function MessageData() {
   const MessageSend = async (text: string, router: string, loginUser: any) => {
     const ChatRoomID = router.split("#")[1];
     const UserUID = router.split("#")[0];
-
-    // const docRef = doc(db, "Users", UserUID);
-    // const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
-
-    // // 로그인 유저가 가지고 있는 채팅방
-    // const RoomDocs = await Promise.all(
-    //   currentUserRoomsDoc.map((roomRef: any) => getDoc(roomRef))
-    // );
-
-    // const RoomDoc = RoomDocs.filter((el) => el.id == ChatRoomID);
-    // const res = RoomDoc[0].ref.path.split("/")[0];
 
     const TypeRoomId = await FindTypeChatRoom(ChatRoomID);
     // console.log(TypeRoomId, "룸타입 구별");
@@ -62,6 +52,13 @@ export default function MessageData() {
 
   // ⭐️ 메세지 리스트 받아오기
   const MessageListFatch = async (roomID: string) => {
+    // const unsub = onSnapshot(
+    //   doc(db, "userChats", sessionStorage.uid),
+    //   (doc: any) => {
+    //     setChats(doc.data());
+    //   }
+    // );
+
     // RoomType 체크하기
     const RoomType = await FindTypeChatRoom(roomID);
 
@@ -99,5 +96,5 @@ export default function MessageData() {
     }
   };
 
-  return { MessageSend, MessageListFatch };
+  return { MessageSend, MessageListFatch, FindTypeChatRoom };
 }

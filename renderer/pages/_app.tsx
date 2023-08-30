@@ -1,8 +1,6 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-// import { Global } from "@emotion/react";
 import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }: AppProps) {

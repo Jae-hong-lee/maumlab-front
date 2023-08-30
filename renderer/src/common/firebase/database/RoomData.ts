@@ -130,9 +130,6 @@ export default function CreateRoom() {
         );
         const users = userDocs.map((userDoc: any) => userDoc.data());
 
-        // 로그인 유저가 가지고 있는 메세지들
-        // const messages =
-
         return {
           ...e.data(),
           users,
