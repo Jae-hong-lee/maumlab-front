@@ -66,45 +66,37 @@ export default function ChatListContainer(props: IListContainer) {
       console.log("채팅추가 대상이 없습니다.");
       return;
     }
+
     // 룸 이름 설정
     if (roomname === "") {
       if (checkedUid.length > 1) {
-        console.log("1:N 채팅방");
         let CreateOpenChat = await createOpenChatRoom(
           checkedUid,
           ChatRoomName,
           UserInfo.uid
         );
-        console.log(CreateOpenChat);
       } else {
         let CreateRoom = await createPersonalChatRoom(
           UserInfo.uid,
           checkedUid.join(""),
           ChatRoomName
         );
-        console.log(CreateRoom);
       }
     } else {
       if (checkedUid.length > 1) {
-        console.log("1:N 채팅방");
         let CreateOpenChat = await createOpenChatRoom(
           checkedUid,
           roomname,
           UserInfo.uid
         );
-        console.log(CreateOpenChat);
       } else {
         let CreateRoom = await createPersonalChatRoom(
           UserInfo.uid,
           checkedUid.join(""),
           roomname
         );
-        console.log(CreateRoom);
       }
     }
-    console.log("채팅방 생성성공");
-    // 업데이트
-    // onSnapshot() 써야함.
     setRoomname("");
     setCheckedUid([]);
     handleClose();

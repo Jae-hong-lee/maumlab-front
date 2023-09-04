@@ -6,8 +6,6 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
-  deleteDoc,
-  deleteField,
   doc,
   getDoc,
   getDocs,
