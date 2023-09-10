@@ -3,7 +3,6 @@ import {
   arrayUnion,
   doc,
   getDoc,
-  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
@@ -46,8 +45,6 @@ export default function MessageData() {
         console.log(error);
       }
     }
-
-    // console.log("Update Message");
   };
 
   // ⭐️ 채팅방 Type구별

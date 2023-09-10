@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import useAuth from "../../src/common/utils/useAuth";
-
 import NavbarContainer from "../../src/component/ChattingPage/Navbar/navbar.container";
 import ChatListContainer from "../../src/component/ChattingPage/ChatList/chatlist.container";
 import FavoriteContainer from "../../src/component/ChattingPage/Favorited/favorite.container";
@@ -8,8 +7,6 @@ import ChatPageId from "./[userid]";
 import { useEffect, useState } from "react";
 import CreateRoom from "../../src/common/firebase/database/RoomData";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { LoginInfo } from "../../src/common/recoil/userInfo";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -54,7 +51,6 @@ function ChatPage() {
 
   const { fetchUserList } = CreateRoom();
   const router = useRouter();
-  // const [userInfo] = useRecoilState(LoginInfo);
 
   const [List, setList] = useState([]);
 
@@ -87,5 +83,4 @@ function ChatPage() {
 
 // useAuth 추가.
 export default useAuth(ChatPage);
-
 // export default ChatPage;

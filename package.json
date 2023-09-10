@@ -23,11 +23,12 @@
     "react-hook-form": "^7.43.9",
     "recoil": "^0.7.6",
     "styled-components": "^5.3.6",
-    "uuid4": "^2.0.3",
+    "uuid": "^9.0.0",
     "yup": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "18.0.26",
+    "@types/uuid": "^9.0.3",
     "electron": "^21.3.3",
     "electron-builder": "^23.6.0",
     "next": "^12.3.4",

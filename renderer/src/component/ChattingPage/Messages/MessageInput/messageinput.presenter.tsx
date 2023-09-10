@@ -21,7 +21,6 @@ export default function MSInputUI(props: IInput) {
         <label htmlFor="file">
           {props.img && <MIS.DataImg src={props.img} />}
           {props.img ? <></> : <img src={"/images/ImgIcon.png"} />}
-          {/* <img src={"/images/ImgIcon.png"} /> */}
         </label>
         <Button variant="contained" size="small" onClick={props.SendMessage}>
           보내기
