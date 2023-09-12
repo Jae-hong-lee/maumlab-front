@@ -111,6 +111,15 @@ export default function CreateRoom() {
   const fetchUserList = async (currentUserUid: any) => {
     const userUid = currentUserUid.split("#")[0];
     const docRef = doc(db, "Users", userUid);
+    // Test-------------
+    const q = query(collection(db, "Users"), where("uid", "==", userUid));
+    const TRes = await getDocs(q);
+    const userListT = TRes.docs.map((doc) => ({
+      ...doc.data(),
+      rooms: doc.data()?.rooms,
+    }));
+    console.log("userList: ", userListT);
+    // Test End---------
     const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
 
     const RoomDocs = await Promise.all(

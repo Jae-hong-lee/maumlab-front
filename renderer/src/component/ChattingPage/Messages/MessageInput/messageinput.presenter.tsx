@@ -16,6 +16,7 @@ export default function MSInputUI(props: IInput) {
           type="file"
           style={{ display: "none" }}
           id="file"
+          name="file"
           onChange={props.onChangeIMG}
         />
         <label htmlFor="file">
