@@ -3,8 +3,5 @@ import { atom } from "recoil";
 
 export const LoginInfo = atom({
   key: "uid",
-  default: {
-    uid: String,
-    displayName: String,
-  },
+  default: {},
 });

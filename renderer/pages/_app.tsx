@@ -7,7 +7,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <Head>
-        <title>Nextron</title>
+        <title>ChatApp 📱</title>
+
         <meta
           name="description"
           content="nextron을 이용한 채팅프로그램을 구현"

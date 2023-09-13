@@ -3,7 +3,7 @@ import NavbarUI from "./navbar.presenter";
 import { LoginInfo } from "../../../common/recoil/userInfo";
 
 export default function NavbarContainer() {
-  const [userInfo] = useRecoilState<any>(LoginInfo);
+  const [userInfo] = useRecoilState(LoginInfo);
 
   return <NavbarUI userInfo={userInfo} />;
 }
