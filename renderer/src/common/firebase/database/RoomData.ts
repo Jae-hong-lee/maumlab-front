@@ -188,7 +188,6 @@ export default function CreateRoom() {
     );
 
     if (RoomUid === undefined) {
-      console.log("RoomUid undef");
       return currentUserRoomsDoc.Favorited;
     }
 
