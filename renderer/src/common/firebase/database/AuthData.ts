@@ -16,7 +16,12 @@ import {
 
 // 회원가입, 로그인 데이터관리하는 함수들
 export default function AuthDataSource() {
-  // 신규 회원가입 이메일 패스워드
+  /**
+   * 신규 회원가입
+   * @param email
+   * @param password
+   * @param nickName
+   */
   const signup = async (email: string, password: string, nickName: string) => {
     try {
       const nameCheck = await CheckNickName(nickName);
@@ -46,7 +51,12 @@ export default function AuthDataSource() {
     }
   };
 
-  // 기존 사용자 로그인
+  /**
+   * 기존 사용자 로그인
+   * @param email
+   * @param password
+   * @returns
+   */
   const login = async (email: string, password: string) => {
     try {
       const LoginUser = await signInWithEmailAndPassword(auth, email, password);
@@ -67,14 +77,23 @@ export default function AuthDataSource() {
 
   //------------------
 
-  // 닉네임 중복체크
+  /**
+   * 닉네임 중복체크
+   * @param name
+   * @returns
+   */
   const CheckNickName = async (name: string) => {
     const q = query(collection(db, "Users"), where("nickName", "==", name));
     const users = await getDocs(q);
     return users.size !== 0;
   };
 
-  // 사용자 정보 Storage 저장
+  /**
+   * 사용자 정보 Storage 저장
+   * @param email
+   * @param uid
+   * @param nickName
+   */
   const saveUserInfo = async (email: string, uid: string, nickName: string) => {
     try {
       await setDoc(doc(db, "Users", uid), {

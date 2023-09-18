@@ -17,7 +17,14 @@ import {
 import { db } from "../firebase";
 
 export default function CreateRoom() {
-  // ⭐️ 1:1 채팅방 생성
+  /**
+   * 1:1 채팅방 생성
+   * @param uid
+   * @param pairUid
+   * @param roomname
+   * @returns 생성된 Room id
+   */
+
   const createPersonalChatRoom = async (
     uid: any,
     pairUid: any,
@@ -41,7 +48,14 @@ export default function CreateRoom() {
     return roomDocRef.id;
   };
 
-  // ⭐️ 1:N 채팅방 생성
+  /**
+   * 1:N 채팅방 생성
+   * @param {string}roomID
+   * @param uid
+   * @param roomname
+   * @param hostUid
+   * @returns 생성된 Room id
+   */
   const createOpenChatRoom = async (
     uids: string[],
     roomname: string,
@@ -62,7 +76,12 @@ export default function CreateRoom() {
     return roomDocRef.id;
   };
 
-  // ⭐️ 1:1 채팅방이 존재하는가??
+  /**
+   * 1:1 채팅방이 존재하는가??
+   * @param uid
+   * @param pairUid
+   * @returns 있다면 rooms에 첫번째 인수의 id
+   */
   const findPersonalChatRoom = async (uid: string, pairUid: string) => {
     const personalChatRoomRef = collection(db, "PersonalChatRooms");
     // firebase in 함수란?
@@ -89,8 +108,12 @@ export default function CreateRoom() {
     return rooms[0]?.id;
   };
 
-  // 사용자(Users)의  room필드에 room uid 추가
-  // arrayUnion()은 배열에 없는 요소만 추가
+  /**
+   * 사용자(Users)의  room필드에 room uid 추가
+   * arrayUnion()은 배열에 없는 요소만 추가
+   * @params uids
+   * @params roomDocRef
+   */
   const UsersUpdateRoom = async (
     uids: string[],
     roomDocRef: DocumentReference<DocumentData>
@@ -103,7 +126,6 @@ export default function CreateRoom() {
   };
 
   /**
-   * ⭐️
    * 현재 로그인한 유저가 속해있는 채팅방 가져오기
    * @param currentUserUid 로그인한 유저의 uid
    * @returns 방 리스트
@@ -111,16 +133,6 @@ export default function CreateRoom() {
   const fetchUserList = async (currentUserUid: any) => {
     const userUid = currentUserUid.split("#")[0];
     const docRef = doc(db, "Users", userUid);
-
-    // Test-------------
-    // const q = query(collection(db, "Users"), where("uid", "==", userUid));
-    // const TRes = await getDocs(q);
-    // const userListT = TRes.docs.map((doc) => ({
-    //   ...doc.data(),
-    //   rooms: doc.data()?.rooms,
-    // }));
-    // console.log("userList: ", userListT);
-    // Test End---------
 
     const currentUserRoomsDoc = (await getDoc(docRef)).data()?.rooms;
 
@@ -151,6 +163,12 @@ export default function CreateRoom() {
     return res;
   };
 
+  /**
+   * 방 즐겨찾기 추가 및 삭제
+   * @param checked
+   * @param user
+   * @param res
+   */
   const favoritedRoom = async (checked: boolean, user: string, res: any) => {
     const UserID = user.split("#")[0];
 
@@ -179,6 +197,12 @@ export default function CreateRoom() {
     }
   };
 
+  /**
+   * 로그인한 유저가 가지고 있는 즐겨찾기 리스트
+   * @param LoginUid
+   * @param RoomUid
+   * @returns
+   */
   const fetchUserInfo = async (LoginUid: string, RoomUid: string) => {
     const docRef = doc(db, "Users", LoginUid);
     const currentUserRoomsDoc = (await getDoc(docRef)).data();

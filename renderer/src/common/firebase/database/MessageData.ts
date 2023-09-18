@@ -8,7 +8,13 @@ import {
 import { db } from "../firebase";
 
 export default function MessageData() {
-  // ⭐️ 메세지 보내기
+  /**
+   * 메시지 보내기
+   * @param {string}text
+   * @param {string}router
+   * @param {any}loginUser
+   * @returns 성공여부
+   */
   const MessageSend = async (text: string, router: string, loginUser: any) => {
     const ChatRoomID = router.split("#")[1];
     const UserUID = router.split("#")[0];
@@ -47,8 +53,13 @@ export default function MessageData() {
     }
   };
 
-  // ⭐️ 채팅방 Type구별
-  // exists() 함수를 이용해서 컬렉션안에 roomID가 있는지 Boolean 값으로 확인
+  /**
+   * 채팅방 Type구별
+   * : exists() 함수를 이용해서 컬렉션안에 roomID가 있는지 Boolean 값으로 확인
+   * @param {string}roomID
+   * @returns {string}RoomTypeName
+   */
+
   const FindTypeChatRoom = async (roomID: string) => {
     const PersonalRef = doc(db, "PersonalChatRooms", roomID);
     const OpenChatRef = doc(db, "OpenChatRooms", roomID);

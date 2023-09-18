@@ -2,7 +2,11 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function UserData() {
-  // 가입된 전체 유저 fetch 기능
+  /**
+   * 가입된 전체 유저 fetch 기능
+   * @param currentUserUid
+   * @returns
+   */
   const fetchAllUser = async (currentUserUid: StringConstructor) => {
     const q = query(
       collection(db, "Users"),
