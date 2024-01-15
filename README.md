@@ -25,8 +25,6 @@ $ yarn create nextron-app my-app --example basic-javascript
 $ pnpx create-nextron-app my-app --example basic-javascript
 ```
 
-### 시연영상
-
 ### Commit Message Convention
 
 | Tag Name | Description                  |
@@ -37,3 +35,9 @@ $ pnpx create-nextron-app my-app --example basic-javascript
 | comment  | comment 추가                 |
 
 `Ex ) feat:로그인, 회원가입 UI `
+
+### 시연영상
+
+#### 로그인
+
+![Login](https://github.com/Jae-hong-lee/maumlab-front/assets/72030487/21957dca-9f66-4567-9503-3d97e6064451)
