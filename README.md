@@ -4,7 +4,7 @@ React의 SSR을 쉽게 구현할 수 있게 NextJS를 이용하고 모바일 환
 
 [Nextron](https://github.com/saltyshiomix/nextron)
 
-### 사용 기술
+## 사용 기술
 
 ```
 yarn(5.1.1),react(18.2.0), next(12.3.4), nextron(8.4.0), firebase,
@@ -12,7 +12,7 @@ recoil(0.7.6), emotion(11.10.5), mui/material(5.11.4), yup(0.32.11),
 react-hook-form(7.42.1)
 ```
 
-### Create an App
+## Create an App
 
 ```
 # with npx
@@ -25,7 +25,7 @@ $ yarn create nextron-app my-app --example basic-javascript
 $ pnpx create-nextron-app my-app --example basic-javascript
 ```
 
-### Commit Message Convention
+## Commit Message Convention
 
 | Tag Name | Description                  |
 | -------- | ---------------------------- |
@@ -36,8 +36,8 @@ $ pnpx create-nextron-app my-app --example basic-javascript
 
 `Ex ) feat:로그인, 회원가입 UI `
 
-### 시연영상
+## 시연영상
 
 #### 로그인
 
-![Login](https://github.com/Jae-hong-lee/maumlab-front/assets/72030487/21957dca-9f66-4567-9503-3d97e6064451)
+![Login](https://github.com/Jae-hong-lee/maumlab-front/assets/72030487/72c80f32-2296-4411-9d2f-e9687c604e73)
