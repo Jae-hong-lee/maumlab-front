@@ -41,3 +41,13 @@ $ pnpx create-nextron-app my-app --example basic-javascript
 #### 로그인
 
 ![Login](https://github.com/Jae-hong-lee/maumlab-front/assets/72030487/72c80f32-2296-4411-9d2f-e9687c604e73)
+
+#### 회원가입
+
+#### 채팅방 생성 1:1
+
+#### 채팅방 생성 1:N
+
+#### 채팅
+
+#### 즐겨찾기
